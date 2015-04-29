@@ -13,7 +13,7 @@
       </openlayers>
       <div id='layers'>
         <div class='groups' ng-repeat='group in layerGroups'>
-          <h2>{{group.name}}</h2>
+          <h4>{{group.name}}</h4>
           <div class='layer' ng-repeat='layer in group.layers'>
             <input ng-model='layer.visible' type='checkbox'>{{layer.name}}</input>
           </div>
