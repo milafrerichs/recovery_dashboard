@@ -11,3 +11,8 @@ title: Welcome to Middleman
       .layer(ng-repeat="layer in group.layers")
         %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
           .name(ng-model="visibleLayers" ng-mouseover="layer.visible=true;" ng-mouseout="staysVisible()") {{layer.name}}
+          .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") I
+          .metadata(ng-show="layer.metadata.show")
+            %span {{layer.metadata.name}}
+            %span {{layer.metadata.source}}
+
