@@ -5,12 +5,10 @@ dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope
     this.layer.metadata.show = false
   $scope.showMetadata = () ->
     this.layer.metadata.show = true
-  $scope.staysVisible = () ->
-    if this.layer.displayed
-      this.layer.visible = true
-    else
-      this.layer.visible = false
   $scope.toggleVisibility = ->
+    this.layer.visible = this.layer.displayed
+  $scope.toggleDisplayed = ->
+    this.layer.displayed = !this.layer.displayed
     this.layer.visible = this.layer.displayed
   mapboxLayer = {
         name: 'Mapbox',
