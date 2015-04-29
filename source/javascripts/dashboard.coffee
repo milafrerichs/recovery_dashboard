@@ -1,6 +1,15 @@
 dashboard = angular.module("dashboard", ["openlayers-directive"])
 
 dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope) ->
+  $scope.hideMetadata = () ->
+    this.layer.metadata.show = false
+  $scope.showMetadata = () ->
+    this.layer.metadata.show = true
+  $scope.toggleVisibility = ->
+    this.layer.visible = this.layer.displayed
+  $scope.toggleDisplayed = ->
+    this.layer.displayed = !this.layer.displayed
+    this.layer.visible = this.layer.displayed
   mapboxLayer = {
         name: 'Mapbox',
         active: true,
@@ -13,18 +22,28 @@ dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope
   medicalLayer = {
         name: 'Medical',
         active: true,
+        displayed: true,
         source: {
           type: 'GeoJSON',
           url: 'data/medical.geojson'
+        }
+        metadata: {
+          name: "Medical facilities"
+          source: "OSM"
         }
       }
   roadsLayer = {
         name: 'Roads',
         active: true,
         visible: false
+        displayed: false,
         source: {
           type: 'GeoJSON',
           url: 'data/main_roads.geojson'
+        }
+        metadata: {
+          name: "Main Roads"
+          source: "OSM"
         }
         style: new ol.style.Style({
           stroke: new ol.style.Stroke({color: 'red', width: 2})
@@ -55,4 +74,5 @@ dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope
     }
     layers: [ medicalLayer, roadsLayer, mapboxLayer ]
   })
+  $scope.visibleLayers = [medicalLayer]
 ])
