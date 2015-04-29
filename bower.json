@@ -1,0 +1,23 @@
+{
+  "name": "middleman-template",
+  "version": "0.0.1",
+  "authors": [
+    "Mila Frerichs <mila.frerichs@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore":"",
+    "jquery":"",
+    "angular-leaflet-directive":"",
+    "angular-openlayers-directive":"",
+    "d3":""
+  }
+}

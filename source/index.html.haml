@@ -1,0 +1,12 @@
+---
+title: Welcome to Middleman
+---
+#recovery-dashboard{ "ng-controller"=> "RecoveryDashboardCtrl" }
+  %openlayers(id="dashboard-map" custom-layers="true" ol-center="nepal")
+    %ol-layer(ol-layer-properties="layer" ng-repeat="layer in layers|filter:{active:true}")
+
+  #layers
+    .groups(ng-repeat="group in layerGroups")
+      %h2 {{group.name}}
+      .layer(ng-repeat="layer in group.layers")
+        %input(type="checkbox" ng-model="layer.visible") {{layer.name}}
