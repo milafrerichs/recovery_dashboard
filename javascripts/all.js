@@ -38751,6 +38751,19 @@ vp.prototype.set=vp.prototype.set;vp.prototype.setProperties=vp.prototype.C;vp.p
   dashboard.controller("RecoveryDashboardCtrl", [
     '$http', '$scope', function($http, $scope) {
       var mapboxLayer, medicalLayer, roadsLayer;
+      $scope.hideMetadata = function() {
+        return this.layer.metadata.show = false;
+      };
+      $scope.showMetadata = function() {
+        return this.layer.metadata.show = true;
+      };
+      $scope.toggleVisibility = function() {
+        return this.layer.visible = this.layer.displayed;
+      };
+      $scope.toggleDisplayed = function() {
+        this.layer.displayed = !this.layer.displayed;
+        return this.layer.visible = this.layer.displayed;
+      };
       mapboxLayer = {
         name: 'Mapbox',
         active: true,
@@ -38763,18 +38776,28 @@ vp.prototype.set=vp.prototype.set;vp.prototype.setProperties=vp.prototype.C;vp.p
       medicalLayer = {
         name: 'Medical',
         active: true,
+        displayed: true,
         source: {
           type: 'GeoJSON',
           url: 'data/medical.geojson'
+        },
+        metadata: {
+          name: "Medical facilities",
+          source: "OSM"
         }
       };
       roadsLayer = {
         name: 'Roads',
         active: true,
         visible: false,
+        displayed: false,
         source: {
           type: 'GeoJSON',
           url: 'data/main_roads.geojson'
+        },
+        metadata: {
+          name: "Main Roads",
+          source: "OSM"
         },
         style: new ol.style.Style({
           stroke: new ol.style.Stroke({
@@ -38792,7 +38815,7 @@ vp.prototype.set=vp.prototype.set;vp.prototype.setProperties=vp.prototype.C;vp.p
           layers: [roadsLayer]
         }
       ];
-      return angular.extend($scope, {
+      angular.extend($scope, {
         defaults: {
           scrollWheelZoom: false
         },
@@ -38803,6 +38826,7 @@ vp.prototype.set=vp.prototype.set;vp.prototype.setProperties=vp.prototype.C;vp.p
         },
         layers: [medicalLayer, roadsLayer, mapboxLayer]
       });
+      return $scope.visibleLayers = [medicalLayer];
     }
   ]);
 

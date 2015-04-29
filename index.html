@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
-    <title>Welcome to Middleman</title>
+    <title>Recovery Dashboard</title>
     <link href="stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="stylesheets/all.css" rel="stylesheet" type="text/css" />
   </head>
   <body class='index'>
@@ -14,8 +14,15 @@
       <div id='layers'>
         <div class='groups' ng-repeat='group in layerGroups'>
           <h4>{{group.name}}</h4>
-          <div class='layer' ng-repeat='layer in group.layers'>
-            <input ng-model='layer.visible' type='checkbox'>{{layer.name}}</input>
+          <div class='layer' ng-click='toggleDisplayed()' ng-mouseout='toggleVisibility()' ng-mouseover='layer.visible=true;' ng-repeat='layer in group.layers'>
+            <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
+              <div class='name' ng-model='visibleLayers'>{{layer.name}}</div>
+              <div class='info' ng-model='layer.metadata.show' ng-mouseout='hideMetadata()' ng-mouseover='showMetadata()'>i</div>
+            </input>
+            <div class='metadata' ng-show='layer.metadata.show'>
+              <div class='name'>Name: {{layer.metadata.name}}</div>
+              <div class='source'>Source: {{layer.metadata.source}}</div>
+            </div>
           </div>
         </div>
       </div>
