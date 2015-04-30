@@ -7,7 +7,7 @@ title: Recovery Dashboard
 
   #layers
     .groups(ng-repeat="group in layerGroups")
-      %h2 {{group.name}}
+      %h4 {{group.name}}
       .layer(ng-repeat="layer in group.layers")
         %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
           .name(ng-model="visibleLayers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-click="toggleDisplayed()") {{layer.name}}
