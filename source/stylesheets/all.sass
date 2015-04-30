@@ -12,7 +12,7 @@
 
 body
   background: #d4d4d4 url("../images/background.png")
-  text-align: center
+  text-align: left
   font-family: sans-serif
 
 h1
@@ -29,6 +29,22 @@ h1
 #recovery-dashboard
   width: 100%
   min-height: 400px
-#dashboard-map
-  width: 100%
-  height: 300px
+  #dashboard-map
+    width: 100%
+    height: 500px
+    position: relative
+
+  #layers
+    position: absolute
+    top: 50px
+    left: 20px
+    @include span-columns(2)
+    background: rgba(233,233,233,0.8)
+    border: 1px solid #cdcdcd
+    h4
+      background: #cecece
+      padding: 10px
+      font-size: 14px
+    .layer
+      padding: 5px 10px
+      font-size: 12px
