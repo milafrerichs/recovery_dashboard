@@ -1,13 +1,13 @@
 dashboard = angular.module("dashboard", ["openlayers-directive"])
 
 dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope) ->
-  mapboxLayer = {
-        name: 'Mapbox',
+  hotosmLayer= {
+        name: 'HOTOSM',
         active: true,
         opacity: 0.5,
         source: {
-          type: 'TileJSON',
-          url: 'http://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
+          type: 'OSM',
+          url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
         }
       }
   medicalLayer = {
@@ -53,6 +53,6 @@ dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope
       lon: 85.3
       zoom: 7
     }
-    layers: [ medicalLayer, roadsLayer, mapboxLayer ]
+    layers: [ medicalLayer, roadsLayer, hotosmLayer]
   })
 ])
