@@ -827,8 +827,8 @@ input[type="submit"] {
 /* line 2, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
 #recovery-dashboard #layers {
   position: absolute;
-  top: 50px;
-  left: 20px;
+  top: 80px;
+  left: 10px;
   float: left;
   display: block;
   margin-right: 2.35765%;
@@ -904,6 +904,6 @@ h1 {
   /* line 34, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
   #recovery-dashboard #dashboard-map {
     width: 100%;
-    height: 500px;
+    height: 100%;
     position: relative;
     border-bottom: 1px solid #cdcdcd; }
