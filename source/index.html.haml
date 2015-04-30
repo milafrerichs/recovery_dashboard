@@ -1,5 +1,5 @@
 ---
-title: Welcome to Middleman
+title: Recovery Dashboard
 ---
 #recovery-dashboard{ "ng-controller"=> "RecoveryDashboardCtrl" }
   %openlayers(id="dashboard-map" custom-layers="true" ol-center="nepal")
@@ -9,4 +9,10 @@ title: Welcome to Middleman
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
       .layer(ng-repeat="layer in group.layers")
-        %input(type="checkbox" ng-model="layer.visible") {{layer.name}}
+        %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
+          .name(ng-model="visibleLayers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-click="toggleDisplayed()") {{layer.name}}
+          .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
+          .metadata(ng-show="layer.metadata.show")
+            %span {{layer.metadata.name}}
+            %span {{layer.metadata.source}}
+
