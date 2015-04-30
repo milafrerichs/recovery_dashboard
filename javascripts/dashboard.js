@@ -1,11 +1,11 @@
 (function() {
-  var dashboard;
+  var RecoveryDashboardCtrl;
 
-  dashboard = angular.module("dashboard", ["openlayers-directive"]);
+  window.dashboard = angular.module("dashboard", ["openlayers-directive"]);
 
-  dashboard.controller("RecoveryDashboardCtrl", [
-    '$http', '$scope', function($http, $scope) {
-      var mapboxLayer, medicalLayer, roadsLayer;
+  RecoveryDashboardCtrl = (function() {
+    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers) {
+      var hotosmLayer, medicalLayer, roadsLayer;
       $scope.hideMetadata = function() {
         return this.layer.metadata.show = false;
       };
@@ -19,17 +19,30 @@
         this.layer.displayed = !this.layer.displayed;
         return this.layer.visible = this.layer.displayed;
       };
-      mapboxLayer = {
-        name: 'Mapbox',
+      hotosmLayer = {
+        name: 'HOTOSM',
         active: true,
         opacity: 0.5,
         source: {
-          type: 'TileJSON',
-          url: 'http://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
+          type: 'OSM',
+          url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+        }
+      };
+      roadsLayer = {
+        name: 'roads',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'GeoJSON',
+          url: 'data/main_roads.geojson'
+        },
+        metadata: {
+          name: "Main roads",
+          source: "OSM"
         }
       };
       medicalLayer = {
-        name: 'Medical',
+        name: 'medical',
         active: true,
         displayed: true,
         source: {
@@ -41,26 +54,20 @@
           source: "OSM"
         }
       };
-      roadsLayer = {
-        name: 'Roads',
-        active: true,
-        visible: false,
-        displayed: false,
-        source: {
-          type: 'GeoJSON',
-          url: 'data/main_roads.geojson'
+      angular.extend($scope, {
+        defaults: {
+          scrollWheelZoom: false,
+          events: {
+            layers: ['mousemove', 'click']
+          }
         },
-        metadata: {
-          name: "Main Roads",
-          source: "OSM"
+        nepal: {
+          lat: 27.7,
+          lon: 85.3,
+          zoom: 7
         },
-        style: new ol.style.Style({
-          stroke: new ol.style.Stroke({
-            color: 'red',
-            width: 2
-          })
-        })
-      };
+        layers: [medicalLayer, roadsLayer, hotosmLayer]
+      });
       $scope.layerGroups = [
         {
           name: "Health",
@@ -70,19 +77,14 @@
           layers: [roadsLayer]
         }
       ];
-      angular.extend($scope, {
-        defaults: {
-          scrollWheelZoom: false
-        },
-        nepal: {
-          lat: 27.7,
-          lon: 85.3,
-          zoom: 7
-        },
-        layers: [medicalLayer, roadsLayer, mapboxLayer]
-      });
-      return $scope.visibleLayers = [medicalLayer];
     }
-  ]);
+
+    return RecoveryDashboardCtrl;
+
+  })();
+
+  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers'];
+
+  window.dashboard.controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl);
 
 }).call(this);

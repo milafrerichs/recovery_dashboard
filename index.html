@@ -8,9 +8,10 @@
   </head>
   <body class='index'>
     <div id='recovery-dashboard' ng-controller='RecoveryDashboardCtrl'>
-      <openlayers custom-layers='true' id='dashboard-map' ol-center='nepal'>
+      <openlayers custom-layers='true' id='dashboard-map' ol-center='nepal' ol-defaults='defaults'>
         <ol-layer ng-repeat='layer in layers|filter:{active:true}' ol-layer-properties='layer'></ol-layer>
       </openlayers>
+      <div id='popup'></div>
       <div id='layers'>
         <div class='groups' ng-repeat='group in layerGroups'>
           <h4>{{group.name}}</h4>
