@@ -74,5 +74,4 @@ dashboard.controller("RecoveryDashboardCtrl", [ '$http','$scope', ($http, $scope
     }
     layers: [ medicalLayer, roadsLayer, hotosmLayer]
   })
-  $scope.visibleLayers = [medicalLayer]
 ])
