@@ -11,9 +11,11 @@ title: Recovery Dashboard
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
       .layer(ng-repeat="layer in group.layers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-click="toggleDisplayed()")
-        %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
-          .name(ng-model="visibleLayers" ) {{layer.name}}
-          .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
+        .layer-check
+          %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
+            %label
+        .name(ng-model="visibleLayers" ) {{layer.metadata.name}}
+        .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
         .metadata(ng-show="layer.metadata.show")
           .name Name: {{layer.metadata.name}}
           .source Source: {{layer.metadata.source}}
