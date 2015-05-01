@@ -855,12 +855,13 @@ input[type="submit"] {
       display: table;
       clear: both; }
     /* line 19, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
-    #recovery-dashboard #layers .layer input {
+    #recovery-dashboard #layers .layer .layer-check {
       float: left; }
     /* line 21, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #layers .layer .name {
-      float: left; }
-    /* line 23, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+      float: left;
+      margin-left: 5px; }
+    /* line 24, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #layers .layer .info {
       float: right;
       background: #215A6D;
@@ -870,7 +871,7 @@ input[type="submit"] {
       color: white;
       line-height: 20px;
       text-align: center; }
-    /* line 32, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    /* line 33, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #layers .layer .metadata {
       position: absolute;
       right: -150px;
@@ -879,13 +880,112 @@ input[type="submit"] {
       background: rgba(200, 200, 200, 0.7);
       padding: 10px; }
 
-/* line 15, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
+/* line 2, /Development/projects/recovery_dashboard/source/stylesheets/components/_popup.sass */
+#recovery-dashboard #popup {
+  background: white;
+  border-radius: 0.1875em;
+  border: 1px solid #DDD;
+  display: inline-block;
+  position: relative;
+  box-shadow: 0 2px 2px silver;
+  color: #333;
+  font-size: 0.7em;
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: 16em;
+  z-index: 10; }
+  /* line 28, /Development/projects/recovery_dashboard/source/stylesheets/components/_popup.sass */
+  #recovery-dashboard #popup h4 {
+    color: #333;
+    line-height: 1.5em;
+    margin: 0;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+    background: #1D2E4C;
+    color: #fff; }
+  /* line 36, /Development/projects/recovery_dashboard/source/stylesheets/components/_popup.sass */
+  #recovery-dashboard #popup .content {
+    padding: 0.5em; }
+  /* line 38, /Development/projects/recovery_dashboard/source/stylesheets/components/_popup.sass */
+  #recovery-dashboard #popup:after {
+    position: absolute;
+    right: 0;
+    left: 0;
+    border: 8px solid transparent;
+    bottom: -1.3em;
+    color: white;
+    content: "▼";
+    font-size: 1.4em;
+    margin-left: -8px;
+    text-align: center; }
+
+/* line 1, /Development/projects/recovery_dashboard/source/stylesheets/components/_layer_checkbox.sass */
+.layer-check {
+  width: 18px;
+  height: 18px;
+  background: #fcfff4;
+  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  float: left; }
+  /* line 3, /Development/projects/recovery_dashboard/source/stylesheets/components/_layer_checkbox.sass */
+  .layer-check input[type=checkbox] {
+    visibility: hidden; }
+  /* line 22, /Development/projects/recovery_dashboard/source/stylesheets/components/_layer_checkbox.sass */
+  .layer-check label {
+    cursor: pointer;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    left: 1px;
+    top: 1px; }
+    /* line 32, /Development/projects/recovery_dashboard/source/stylesheets/components/_layer_checkbox.sass */
+    .layer-check label:after {
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      filter: alpha(opacity=0);
+      opacity: 0;
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #00A0B0;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px;
+      top: 1px;
+      left: 1px; }
+    /* line 46, /Development/projects/recovery_dashboard/source/stylesheets/components/_layer_checkbox.sass */
+    .layer-check label:hover::after {
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+      filter: alpha(opacity=30);
+      opacity: 0.3; }
+  /* line 50, /Development/projects/recovery_dashboard/source/stylesheets/components/_layer_checkbox.sass */
+  .layer-check input[type=checkbox]:checked + label:after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1; }
+
+/* line 17, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
 body {
   background: #d4d4d4 url("../images/background.png");
   text-align: left;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  -webkit-backface-visibility: hidden; }
 
-/* line 20, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
+/* line 23, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
 h1 {
   color: rgba(0, 0, 0, 0.3);
   font-weight: bold;
@@ -897,13 +997,13 @@ h1 {
   padding: 350px 0 10px;
   margin: 0; }
 
-/* line 31, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
+/* line 34, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
 #recovery-dashboard {
   width: 100%;
   min-height: 400px; }
-  /* line 34, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
+  /* line 37, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
   #recovery-dashboard #dashboard-map {
     width: 100%;
-    height: 100%;
+    height: 500px;
     position: relative;
     border-bottom: 1px solid #cdcdcd; }

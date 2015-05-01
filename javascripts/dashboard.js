@@ -5,7 +5,7 @@
 
   RecoveryDashboardCtrl = (function() {
     function RecoveryDashboardCtrl($scope, $http, olData, olHelpers) {
-      var hotosmLayer, medicalLayer, roadsLayer;
+      var allRoadsLayer, hotosmLayer, medicalLayer, roadsLayer;
       $scope.hideMetadata = function() {
         return this.layer.metadata.show = false;
       };
@@ -26,6 +26,19 @@
         source: {
           type: 'OSM',
           url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+        }
+      };
+      allRoadsLayer = {
+        name: 'roads',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/all_roads.json'
+        },
+        metadata: {
+          name: "Main roads",
+          source: "OSM"
         }
       };
       roadsLayer = {
@@ -66,7 +79,7 @@
           lon: 85.3,
           zoom: 7
         },
-        layers: [medicalLayer, roadsLayer, hotosmLayer]
+        layers: [medicalLayer, roadsLayer, allRoadsLayer, hotosmLayer]
       });
       $scope.layerGroups = [
         {
@@ -77,6 +90,34 @@
           layers: [roadsLayer]
         }
       ];
+      olData.getMap().then(function(map) {
+        var overlay, showPopup;
+        overlay = new ol.Overlay({
+          element: document.getElementById('popup'),
+          positioning: 'bottom-center',
+          offset: [3, -25],
+          position: [0, 0]
+        });
+        showPopup = function(event, feature, olEvent) {
+          var overlayHidden;
+          $scope.$apply(function(scope) {
+            return $scope.properties = feature ? feature.getProperties() : {};
+          });
+          overlayHidden = true;
+          if (!feature) {
+            map.removeOverlay(overlay);
+            overlayHidden = true;
+          } else {
+            if (overlayHidden) {
+              map.addOverlay(overlay);
+              overlayHidden = false;
+            }
+          }
+          return overlay.setPosition(map.getEventCoordinate(olEvent));
+        };
+        $scope.$on('openlayers.layers.medical.click', showPopup);
+        return $scope.$on('openlayers.layers.roads.click', showPopup);
+      });
     }
 
     return RecoveryDashboardCtrl;

@@ -8,18 +8,26 @@
   </head>
   <body class='index'>
     <div id='recovery-dashboard' ng-controller='RecoveryDashboardCtrl'>
-      <openlayers custom-layers='true' id='dashboard-map' ol-center='nepal' ol-defaults='defaults'>
+      <openlayers custom-layers='true' ol-center='nepal' ol-defaults='defaults'>
         <ol-layer ng-repeat='layer in layers|filter:{active:true}' ol-layer-properties='layer'></ol-layer>
       </openlayers>
-      <div id='popup'></div>
+      <div id='popup'>
+        <h4>{{properties.NAME}}</h4>
+        <div class='content'>
+          <p>OSM_ID: {{properties.OSM_ID}}</p>
+        </div>
+      </div>
       <div id='layers'>
         <div class='groups' ng-repeat='group in layerGroups'>
           <h4>{{group.name}}</h4>
           <div class='layer' ng-click='toggleDisplayed()' ng-mouseout='toggleVisibility()' ng-mouseover='layer.visible=true;' ng-repeat='layer in group.layers'>
-            <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
-              <div class='name' ng-model='visibleLayers'>{{layer.name}}</div>
-              <div class='info' ng-model='layer.metadata.show' ng-mouseout='hideMetadata()' ng-mouseover='showMetadata()'>i</div>
-            </input>
+            <div class='layer-check'>
+              <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
+                <label></label>
+              </input>
+            </div>
+            <div class='name' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
+            <div class='info' ng-model='layer.metadata.show' ng-mouseout='hideMetadata()' ng-mouseover='showMetadata()'>i</div>
             <div class='metadata' ng-show='layer.metadata.show'>
               <div class='name'>Name: {{layer.metadata.name}}</div>
               <div class='source'>Source: {{layer.metadata.source}}</div>
