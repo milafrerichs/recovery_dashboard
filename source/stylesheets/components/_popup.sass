@@ -12,27 +12,29 @@
     $tooltip-shadow: 0 2px 2px silver
     $tooltip-distance-from-item: 3em
     $tooltip-arrow-distance-from-box: -1.3em
+    $tooltip-header-color: #1D2E4C
     background: $tooltip-background
     border-radius: $base-border-radius
     border: 1px solid $base-border-color
     display: inline-block
-    padding: 0.5em 1em
     position: relative
-    text-align: center
     box-shadow: $tooltip-shadow
     color: $tooltip-color
-    font-size: 0.9em
+    font-size: 0.7em
     line-height: 1.5em
     margin: 0 auto
     max-width: $tooltip-max-width
-    padding: 1em
-    text-align: center
     z-index: 10
     h4
       color: $base-font-color
       line-height: $base-line-height
       margin: 0
-      font-size: 0.8em
+      font-size: 1.2em
+      padding: 0.5em 1em
+      background: $tooltip-header-color
+      color: #fff
+    .content
+      padding: 0.5em
     &:after
       @include position(absolute, null 0 null 0)
       border: $tooltip-arrow-width solid transparent

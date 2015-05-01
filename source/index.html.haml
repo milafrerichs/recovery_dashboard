@@ -7,6 +7,8 @@ title: Recovery Dashboard
 
   #popup
     %h4 {{properties.NAME}}
+    .content
+      %p OSM_ID: {{properties.OSM_ID}}
   #layers
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
