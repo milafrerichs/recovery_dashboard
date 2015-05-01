@@ -12,7 +12,6 @@ title: Recovery Dashboard
         %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
           .name(ng-model="visibleLayers" ) {{layer.name}}
           .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
-          .metadata(ng-show="layer.metadata.show")
-            %span {{layer.metadata.name}}
-            %span {{layer.metadata.source}}
-
+        .metadata(ng-show="layer.metadata.show")
+          .name Name: {{layer.metadata.name}}
+          .source Source: {{layer.metadata.source}}
