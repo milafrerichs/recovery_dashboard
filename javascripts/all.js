@@ -38750,7 +38750,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
   RecoveryDashboardCtrl = (function() {
     function RecoveryDashboardCtrl($scope, $http, olData, olHelpers) {
-      var allRoadsLayer, hotosmLayer, medicalLayer, policeLayer, roadsLayer, schoolLayer, tracksLayer, trainStationsLayer;
+      var allRoadsLayer, bridgeDamageLayer, firestationsLayer, hotosmLayer, medicalLayer, medicalPolygonLayer, policeLayer, roadsLayer, schoolLayer, schoolPolygonLayer, tracksLayer, trainStationsLayer, unstablebridgeLayer;
       $scope.hideMetadata = function() {
         return this.layer.metadata.show = false;
       };
@@ -38773,6 +38773,29 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
         }
       };
+      schoolPolygonLayer = {
+        name: 'school-polygon',
+        active: true,
+        displayed: false,
+        visible: false,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/schools_polygon.json'
+        },
+        metadata: {
+          name: "School Polygons",
+          source: "OSM"
+        },
+        style: {
+          fill: {
+            color: "blue"
+          },
+          stroke: {
+            width: 4,
+            color: "blue"
+          }
+        }
+      };
       schoolLayer = {
         name: 'school',
         active: true,
@@ -38790,12 +38813,57 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           image: {
             icon: {
               src: 'images/icons/school-12.png'
-            },
-            stroke: {
-              color: "#000000",
-              width: 3
             }
           }
+        }
+      };
+      firestationsLayer = {
+        name: 'firestations',
+        active: true,
+        displayed: false,
+        visible: false,
+        source: {
+          type: 'ImageWMS',
+          url: 'http://agsc.pdc.org/arcgis/services/regional/pdc_nepal_basedata/MapServer/WMSServer',
+          params: {
+            LAYERS: "2"
+          }
+        },
+        metadata: {
+          name: "Fire stations",
+          source: "ArcGIS"
+        }
+      };
+      unstablebridgeLayer = {
+        name: 'unstablebridge',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'ImageWMS',
+          url: 'http://agsc.pdc.org/arcgis/services/regional/pdc_nepal/MapServer/WMSServer',
+          params: {
+            LAYERS: "28"
+          }
+        },
+        metadata: {
+          name: "Unstable Bridges ",
+          source: "ArcGIS"
+        }
+      };
+      bridgeDamageLayer = {
+        name: 'bridgedamage',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'ImageWMS',
+          url: 'http://agsc.pdc.org/arcgis/services/regional/pdc_nepal/MapServer/WMSServer',
+          params: {
+            LAYERS: "27"
+          }
+        },
+        metadata: {
+          name: "Bridge damages",
+          source: "ArcGIS"
         }
       };
       policeLayer = {
@@ -38881,6 +38949,28 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           source: "OSM"
         }
       };
+      medicalPolygonLayer = {
+        name: 'medicalpolygon',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/medical_polygon.json'
+        },
+        metadata: {
+          name: "Medical facilities Polygons",
+          source: "OSM"
+        },
+        style: {
+          fill: {
+            color: "red"
+          },
+          stroke: {
+            width: 4,
+            color: "red"
+          }
+        }
+      };
       medicalLayer = {
         name: 'medical',
         active: true,
@@ -38913,18 +39003,21 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           lon: 85.3,
           zoom: 7
         },
-        layers: [medicalLayer, roadsLayer, allRoadsLayer, trainStationsLayer, hotosmLayer, tracksLayer, policeLayer, schoolLayer]
+        layers: [medicalLayer, roadsLayer, allRoadsLayer, trainStationsLayer, hotosmLayer, tracksLayer, policeLayer, schoolLayer, firestationsLayer, bridgeDamageLayer, unstablebridgeLayer, schoolPolygonLayer, medicalPolygonLayer]
       });
       $scope.layerGroups = [
         {
           name: "Health",
-          layers: [medicalLayer]
+          layers: [medicalLayer, medicalPolygonLayer]
         }, {
           name: "Infrastructure",
           layers: [roadsLayer, allRoadsLayer, trainStationsLayer, tracksLayer]
         }, {
           name: "Public Facilities",
-          layers: [policeLayer, schoolLayer]
+          layers: [policeLayer, schoolLayer, schoolPolygonLayer, firestationsLayer]
+        }, {
+          name: "Damages",
+          layers: [bridgeDamageLayer, unstablebridgeLayer]
         }
       ];
       olData.getMap().then(function(map) {
