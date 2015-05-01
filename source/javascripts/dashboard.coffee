@@ -87,6 +87,30 @@ class RecoveryDashboardCtrl
         ]
       }
     ]
+    olData.getMap().then( (map) ->
+      overlay = new ol.Overlay({
+                      element: document.getElementById('popup'),
+                      positioning: 'bottom-center',
+                      offset: [3, -25],
+                      position: [0, 0]
+      })
+      showPopup = (event, feature, olEvent) ->
+        $scope.$apply((scope) ->
+          $scope.properties = if feature then feature.getProperties() else {}
+        )
+        overlayHidden = true
+        unless feature
+          map.removeOverlay(overlay)
+          overlayHidden = true
+        else
+          if overlayHidden
+            map.addOverlay(overlay)
+            overlayHidden = false
+        overlay.setPosition(map.getEventCoordinate(olEvent))
+
+      $scope.$on('openlayers.layers.medical.click',showPopup)
+      $scope.$on('openlayers.layers.roads.click',showPopup)
+    )
 
 RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers']
 window.dashboard.controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)

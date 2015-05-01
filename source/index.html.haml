@@ -5,6 +5,8 @@ title: Recovery Dashboard
   %openlayers(custom-layers="true" ol-defaults="defaults" ol-center="nepal")
     %ol-layer(ol-layer-properties="layer" ng-repeat="layer in layers|filter:{active:true}")
 
+  #popup
+    %h4 {{properties.NAME}}
   #layers
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
