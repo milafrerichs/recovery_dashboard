@@ -2,17 +2,20 @@
 title: Recovery Dashboard
 ---
 #recovery-dashboard{ "ng-controller"=> "RecoveryDashboardCtrl" }
-  %openlayers(id="dashboard-map" custom-layers="true" ol-center="nepal")
+  %openlayers(custom-layers="true" ol-defaults="defaults" ol-center="nepal")
     %ol-layer(ol-layer-properties="layer" ng-repeat="layer in layers|filter:{active:true}")
 
+  #popup
+    %h4 {{properties.NAME}}
+    .content
+      %p OSM_ID: {{properties.OSM_ID}}
   #layers
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
-      .layer(ng-repeat="layer in group.layers")
+      .layer(ng-repeat="layer in group.layers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-click="toggleDisplayed()")
         %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
-          .name(ng-model="visibleLayers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-click="toggleDisplayed()") {{layer.name}}
+          .name(ng-model="visibleLayers" ) {{layer.name}}
           .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
-          .metadata(ng-show="layer.metadata.show")
-            %span {{layer.metadata.name}}
-            %span {{layer.metadata.source}}
-
+        .metadata(ng-show="layer.metadata.show")
+          .name Name: {{layer.metadata.name}}
+          .source Source: {{layer.metadata.source}}
