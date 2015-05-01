@@ -5,7 +5,7 @@
 
   RecoveryDashboardCtrl = (function() {
     function RecoveryDashboardCtrl($scope, $http, olData, olHelpers) {
-      var allRoadsLayer, hotosmLayer, medicalLayer, roadsLayer;
+      var allRoadsLayer, hotosmLayer, medicalLayer, policeLayer, roadsLayer, schoolLayer, tracksLayer, trainStationsLayer;
       $scope.hideMetadata = function() {
         return this.layer.metadata.show = false;
       };
@@ -28,16 +28,98 @@
           url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
         }
       };
+      schoolLayer = {
+        name: 'school',
+        active: true,
+        displayed: false,
+        visible: false,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/schools_point.json'
+        },
+        metadata: {
+          name: "Schools",
+          source: "OSM"
+        },
+        style: {
+          image: {
+            icon: {
+              src: 'images/icons/school-12.png'
+            },
+            stroke: {
+              color: "#000000",
+              width: 3
+            }
+          }
+        }
+      };
+      policeLayer = {
+        name: 'police',
+        active: true,
+        displayed: false,
+        visible: false,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/police_stations.json'
+        },
+        metadata: {
+          name: "Police stations",
+          source: "OSM"
+        },
+        style: {
+          image: {
+            icon: {
+              src: 'images/icons/police-12.png'
+            }
+          }
+        }
+      };
+      trainStationsLayer = {
+        name: 'train_stations',
+        active: true,
+        displayed: false,
+        visible: false,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/train_stations.json'
+        },
+        metadata: {
+          name: "Train stations",
+          source: "OSM"
+        },
+        style: {
+          image: {
+            icon: {
+              src: 'images/icons/rail-12.png'
+            }
+          }
+        }
+      };
+      tracksLayer = {
+        name: 'tracks',
+        active: true,
+        displayed: false,
+        visible: false,
+        source: {
+          type: 'GeoJSON',
+          url: 'http://nepal.piensa.co/data/tracks.json'
+        },
+        metadata: {
+          name: "Tracks",
+          source: "OSM"
+        }
+      };
       allRoadsLayer = {
         name: 'roads',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'GeoJSON',
           url: 'http://nepal.piensa.co/data/all_roads.json'
         },
         metadata: {
-          name: "Main roads",
+          name: "All roads",
           source: "OSM"
         }
       };
@@ -62,6 +144,13 @@
           type: 'GeoJSON',
           url: 'data/medical.geojson'
         },
+        style: {
+          image: {
+            icon: {
+              src: 'images/icons/hospital-12.png'
+            }
+          }
+        },
         metadata: {
           name: "Medical facilities",
           source: "OSM"
@@ -79,7 +168,7 @@
           lon: 85.3,
           zoom: 7
         },
-        layers: [medicalLayer, roadsLayer, allRoadsLayer, hotosmLayer]
+        layers: [medicalLayer, roadsLayer, allRoadsLayer, trainStationsLayer, hotosmLayer, tracksLayer, policeLayer, schoolLayer]
       });
       $scope.layerGroups = [
         {
@@ -87,7 +176,10 @@
           layers: [medicalLayer]
         }, {
           name: "Infrastructure",
-          layers: [roadsLayer]
+          layers: [roadsLayer, allRoadsLayer, trainStationsLayer, tracksLayer]
+        }, {
+          name: "Public Facilities",
+          layers: [policeLayer, schoolLayer]
         }
       ];
       olData.getMap().then(function(map) {
