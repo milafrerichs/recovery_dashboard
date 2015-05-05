@@ -1,8 +1,9 @@
 ---
 title: Recovery Dashboard
 ---
+= partial "partials/sidebar.html"
 #recovery-dashboard{ "ng-controller"=> "RecoveryDashboardCtrl" }
-  %openlayers(custom-layers="true" ol-defaults="defaults" ol-center="nepal")
+  %openlayers(class="dashboard-map" custom-layers="true" ol-defaults="defaults" ol-center="nepal")
     %ol-layer(ol-layer-properties="layer" ng-repeat="layer in layers|filter:{active:true}")
 
   #popup

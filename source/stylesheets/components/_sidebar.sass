@@ -1,0 +1,32 @@
+$sidebar-background: rgba(30,30,30,0.8)
+.sidebar
+  position: absolute
+  right: 0
+  top: 40px
+  background: $sidebar-background
+  z-index: 50
+  &.active
+    @include span-columns(4)
+    @include omega()
+  .pull
+    background: $sidebar-background
+    padding: 0 5px
+    &:after
+      content: "«"
+      color: #fff
+      font-size: 2em
+      cursor: pointer
+  #sidebar
+    padding: 10px
+    .close
+      float: right
+      &:after
+        content: "x"
+        color: #fff
+        font-size: 1em
+        cursor: pointer
+    .content
+      +clearfix
+      color: #fff
+      a
+        display: block
