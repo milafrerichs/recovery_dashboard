@@ -1,0 +1,11 @@
+.sidebar(ng-controller="SidebarCtrl" ng-class="{active: show}")
+  .pull(ng-click="toggleSidebar()" ng-hide="show")
+  #sidebar(ng-show="show")
+    .close(ng-click="toggleSidebar()")
+    .content
+      %h1 Recovery Dashboard: Nepal Earthquake
+      %p This project is ...
+      = link_to "http://gfdrr.org", target: "_blank" do
+        = image_tag "images/logo.png"
+      = link_to "http://worldbank.org", target: "_blank" do
+        = image_tag "images/worldbank.png"

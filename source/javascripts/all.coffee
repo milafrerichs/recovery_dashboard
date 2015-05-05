@@ -7,3 +7,4 @@
 //= require dashboard
 //= require layerListModel
 //= require dashboard_controller
+//= require sidebar-controller
