@@ -1,12 +1,39 @@
 # Recovery Dashboard: Nepal Earthquake
 
+## Stack
+This repo uses middleman, a static site generator, to build the site.
+Once built middleman (and ruby, etc) is not needed.
+
+The static site uses the following libraries:
+- Angular
+- OpenLayers 3
+
+It uses them using another library called `angular-openlayers-directive` which can be found [here](https://github.com/tombatossals/angular-openlayers-directive)
+
+Dependencies are installed using [bower](http://bower.io/)
 
 ## Development
 The repo is a middleman site
 ### Installation
 
-#### Ruby
-Install ruby and rubygems
+#### The docker way
+Install Docker:
+https://docs.docker.com/installation/
+
+```shell
+docker-compose up
+```
+add `-d` if you want it to run as a deamon
+open your browser at your docker ip with port `4567`
+
+or use the docker.sh script (which does the same as above
+
+```shell
+./docker.sh
+```
+
+#### the ruby way
+Install ruby and rubygems and node/npm
 
 #### Dependencies
 ```shell
