@@ -1,4 +1,4 @@
-window.dashboard.service('layerListModel', ['$rootScope', ($rootScope) ->
+window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
   hotosmLayer= {
         name: 'HOTOSM',
         active: true,
@@ -57,7 +57,7 @@ window.dashboard.service('layerListModel', ['$rootScope', ($rootScope) ->
           type: 'GeoJSON',
           url: 'data/poverty.geojson'
         }
-        # style: styleHelper.povertyStyle
+        style: styleHelper.povertyAvgStyle
         metadata: {
           name: "Poverty Levels"
           source: "Worldbank"
