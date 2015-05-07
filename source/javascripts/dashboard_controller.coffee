@@ -1,5 +1,5 @@
 class RecoveryDashboardCtrl
-  constructor: ($scope, $http, olData, olHelpers, layerListModel) ->
+  constructor: ($scope, $http, olData, olHelpers, layerListModel, styleHelper) ->
     $scope.hideMetadata = () ->
       this.layer.metadata.show = false
     $scope.showMetadata = () ->
@@ -9,6 +9,9 @@ class RecoveryDashboardCtrl
     $scope.toggleDisplayed = ->
       this.layer.displayed = !this.layer.displayed
       this.layer.visible = this.layer.displayed
+    $scope.styleHelper = styleHelper
+    $scope.changeStyle = () ->
+      this.layer.style = $scope.styleHelper[this.styleOptions.styleParam]
     angular.extend($scope, {
       defaults: {
         scrollWheelZoom: false
@@ -48,6 +51,7 @@ class RecoveryDashboardCtrl
       $scope.$on('openlayers.layers.roads.click',showPopup)
     )
     $scope.layerGroups = layerListModel.layerGroups
+    $scope.layerList = layerListModel.list
 
-RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListModel']
+RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListModel', 'styleHelper']
 window.dashboard.controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)
