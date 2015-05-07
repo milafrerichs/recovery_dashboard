@@ -13,12 +13,16 @@ title: Recovery Dashboard
   #layers
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
-      .layer(ng-repeat="layer in group.layers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-click="toggleDisplayed()")
-        .layer-check
+      .layer(ng-repeat="layer in group.layers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-model="layer")
+        .layer-check(ng-click="toggleDisplayed()")
           %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
             %label
-        .name(ng-model="visibleLayers" ) {{layer.metadata.name}}
+        .name(ng-model="visibleLayers" ng-click="toggleDisplayed()") {{layer.metadata.name}}
         .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
+        .sub-styles(ng-show="layer.styleOptions")
+          .subcheck( ng-model="styleOptions" ng-repeat="styleOptions in layer.styleOptions")
+            %input(type="radio" name="layerSubStyle" ng-model="layer.selectedStyle" ng-value="styleOptions.styleParam" ng-change="changeStyle()")
+            %p {{styleOptions.styleName}}
         .metadata(ng-show="layer.metadata.show")
           .name Name: {{layer.metadata.name}}
           .source Source: {{layer.metadata.source}}

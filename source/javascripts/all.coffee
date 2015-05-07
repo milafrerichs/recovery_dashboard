@@ -4,7 +4,10 @@
 //= require angular
 //= require angular-sanitize
 //= require angular-openlayers-directive
+//= require d3
+//= require colorbrewer
 //= require dashboard
+//= require style-helper
 //= require layerListModel
 //= require dashboard_controller
 //= require sidebar-controller
