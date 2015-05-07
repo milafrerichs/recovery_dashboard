@@ -10,9 +10,15 @@ window.dashboard.factory('styleHelper', ->
   styleFillWithColor= (c) ->
     [ new (ol.style.Style)(fill: new (ol.style.Fill)(color: c)) ]
 
+  povertyAbsStyle = (feature, resolution) ->
+    povertyScale.domain([0, 100000])
+    styleFillWithColor(povertyScale(feature.get("se_Number_")))
+
   povertyAvgStyle = (feature, resolution) ->
+    povertyScale.domain([0, 1])
     styleFillWithColor(povertyScale(feature.get("avg_FGT0_1")))
   {
     povertyAvgStyle: povertyAvgStyle
+    povertyAbsStyle: povertyAbsStyle
   }
 )

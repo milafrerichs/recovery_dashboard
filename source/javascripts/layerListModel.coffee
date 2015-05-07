@@ -58,6 +58,17 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
           url: 'data/poverty.geojson'
         }
         style: styleHelper.povertyAvgStyle
+        selectedStyle: "povertyAvgStyle"
+        styleOptions: [
+          {
+            styleName: "Avg Poor"
+            styleParam: "povertyAvgStyle"
+          }
+          {
+            styleName: "Absolute # of Poor"
+            styleParam: "povertyAbsStyle"
+          }
+        ]
         metadata: {
           name: "Poverty Levels"
           source: "Worldbank"
