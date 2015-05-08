@@ -7,9 +7,15 @@ title: Recovery Dashboard
     %ol-layer(ol-layer-properties="layer" ng-repeat="layer in layers|filter:{active:true}")
 
   #popup
-    %h4 {{properties.NAME}}
-    .content
-      %p OSM_ID: {{properties.OSM_ID}}
+    .poverty(ng-show="name=='poverty'")
+      %h4 {{properties.OBJECTID}}
+      .content
+        %p Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %
+        %p People: {{properties.nIndividua}}
+    .osm(ng-show="sourceType=='OSM'")
+      %h4 {{properties.NAME}}
+      .content
+        %p OSM_ID: {{properties.OSM_ID}}
   #layers
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}

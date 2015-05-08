@@ -34,8 +34,13 @@ class RecoveryDashboardCtrl
                       position: [0, 0]
       })
       showPopup = (event, feature, olEvent) ->
+        pixel = map.getEventPixel(olEvent.originalEvent)
+        layer = map.forEachLayerAtPixel(pixel, (layer) -> layer)
         $scope.$apply((scope) ->
           $scope.properties = if feature then feature.getProperties() else {}
+          $scope.name = layer.get('name')
+          layerData = _.find(scope.layerList, {name: $scope.name })
+          $scope.sourceType = layerData.metadata.source
         )
         overlayHidden = true
         unless feature
