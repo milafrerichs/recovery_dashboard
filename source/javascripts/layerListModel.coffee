@@ -54,8 +54,8 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
         active: true,
         displayed: true,
         source: {
-          type: 'GeoJSON',
-          url: 'data/poverty.geojson'
+          type: 'TopoJSON',
+          url: 'data/poverty.json'
         }
         style: styleHelper.povertyAvgStyle
         selectedStyle: "povertyAvgStyle"
