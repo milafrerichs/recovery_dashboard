@@ -26,9 +26,27 @@
         <ol-layer ng-repeat='layer in layers|filter:{active:true}' ol-layer-properties='layer'></ol-layer>
       </openlayers>
       <div id='popup'>
-        <h4>{{properties.NAME}}</h4>
-        <div class='content'>
-          <p>OSM_ID: {{properties.OSM_ID}}</p>
+        <div class='poverty' ng-show="name=='poverty'">
+          <h4>{{properties.OBJECTID}}</h4>
+          <div class='content'>
+            <p>Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %</p>
+            <p>People: {{properties.nIndividua}}</p>
+          </div>
+        </div>
+        <div class='media' ng-show="name=='media'">
+          <h4>{{properties.District}}</h4>
+          <div class='content'>
+            <p>Date: {{properties.Date}}</p>
+            <p>Injured: {{properties.Injured}}</p>
+            <p>Houses Affected: {{properties.Houses_aff}}</p>
+            <p>Killed: {{properties.Killed}}</p>
+          </div>
+        </div>
+        <div class='osm' ng-show="sourceType=='OSM'">
+          <h4>{{properties.NAME}}</h4>
+          <div class='content'>
+            <p>OSM_ID: {{properties.OSM_ID}}</p>
+          </div>
         </div>
       </div>
       <div id='layers'>

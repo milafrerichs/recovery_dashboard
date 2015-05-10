@@ -43,9 +43,19 @@
           position: [0, 0]
         });
         showPopup = function(event, feature, olEvent) {
-          var overlayHidden;
+          var layer, overlayHidden, pixel;
+          pixel = map.getEventPixel(olEvent.originalEvent);
+          layer = map.forEachLayerAtPixel(pixel, function(layer) {
+            return layer;
+          });
           $scope.$apply(function(scope) {
-            return $scope.properties = feature ? feature.getProperties() : {};
+            var layerData;
+            $scope.properties = feature ? feature.getProperties() : {};
+            $scope.name = layer.get('name');
+            layerData = _.find(scope.layerList, {
+              name: $scope.name
+            });
+            return $scope.sourceType = layerData.metadata.source;
           });
           overlayHidden = true;
           if (!feature) {

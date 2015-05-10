@@ -5,7 +5,7 @@
       hotosmLayer = {
         name: 'HOTOSM',
         active: true,
-        opacity: 0.5,
+        index: 0,
         source: {
           type: 'OSM',
           url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
@@ -13,12 +13,13 @@
       };
       povertyLayer = {
         name: 'poverty',
-        active: true,
+        active: false,
         displayed: true,
-        index: 2,
+        index: 1,
         source: {
-          type: 'TopoJSON',
-          url: 'data/poverty.json'
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
         },
         style: styleHelper.povertyAvgStyle,
         selectedStyle: "povertyAvgStyle",
@@ -157,15 +158,13 @@
         }
       };
       mediaLayer = {
-        name: 'media-layer',
+        name: 'media',
         active: true,
         displayed: true,
         source: {
-          type: 'GeoJSON',
-          url: 'data/media.geojson'
-        },
-        style: function(feature, resolution) {
-          debugger;
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://104.236.203.232/media/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Mainstream Media text",
@@ -177,8 +176,9 @@
         active: true,
         displayed: true,
         source: {
-          type: 'GeoJSON',
-          url: 'data/landslides.geojson'
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://104.236.203.232/landslide/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Landslides",
@@ -203,6 +203,9 @@
           name: "Poverty",
           layers: [povertyLayer]
         }, {
+          name: "Landslides",
+          layers: [landslideLayer]
+        }, {
           name: "Media",
           layers: [mediaLayer]
         }, {
@@ -216,8 +219,8 @@
       this.list = _.unique(_.flatten([
         _.collect(this.layerGroups, function(group) {
           return group.layers;
-        }), hotosmLayer
-      ]));
+        }).reverse(), hotosmLayer
+      ])).reverse();
       return this;
     }
   ]);
