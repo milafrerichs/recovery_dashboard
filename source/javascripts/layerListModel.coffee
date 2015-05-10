@@ -10,12 +10,13 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
   }
   povertyLayer = {
     name: 'poverty',
-    active: true,
+    active: false,
     displayed: true,
     index: 1
     source: {
-      type: 'TopoJSON',
-      url: 'data/poverty.json'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
     }
     style: styleHelper.povertyAvgStyle
     selectedStyle: "povertyAvgStyle"
@@ -159,11 +160,10 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     active: true,
     displayed: true,
     source: {
-      type: 'GeoJSON',
-      url: 'data/media.geojson'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://104.236.203.232/media/{z}/{x}/{y}.geojson'
     }
-    style: (feature, resolution) ->
-      debugger
     metadata: {
       name: "Mainstream Media text"
       source: "Worldbank"
@@ -174,8 +174,9 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     active: true,
     displayed: true,
     source: {
-      type: 'GeoJSON',
-      url: 'data/landslides.geojson'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://104.236.203.232/landslide/{z}/{x}/{y}.geojson'
     }
     metadata: {
       name: "Landslides"
@@ -200,6 +201,12 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "Poverty"
       layers: [
         povertyLayer
+      ]
+    }
+    {
+      name: "Landslides"
+      layers: [
+        landslideLayer
       ]
     }
     {
