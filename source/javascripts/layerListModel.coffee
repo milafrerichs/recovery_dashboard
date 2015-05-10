@@ -156,7 +156,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     }
   }
   mediaLayer = {
-    name: 'media-layer',
+    name: 'media',
     active: true,
     displayed: true,
     source: {
