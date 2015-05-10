@@ -3,7 +3,7 @@
 //= require "openlayers3/build/ol.js"
 //= require angular
 //= require angular-sanitize
-//= require angular-openlayers-directive
+//= require angular-openlayers-directive.js
 //= require d3
 //= require colorbrewer
 //= require dashboard
