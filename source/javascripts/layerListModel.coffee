@@ -256,6 +256,12 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       ]
     }
     {
+      name: "Damages"
+      layers: [
+        damagedBuildingsLayer
+      ]
+    }
+    {
       name: "Media"
       layers: [
         mediaLayer
