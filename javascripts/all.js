@@ -50372,7 +50372,7 @@ var colorbrewer = {YlGn: {
 (function() {
   window.dashboard.service('layerListModel', [
     '$rootScope', 'styleHelper', function($rootScope, styleHelper) {
-      var damagedBuildingsLayer, hotosmLayer, landslideLayer, mediaLayer, medicalLayer, medicalPolygonLayer, povertyLayer, roadsLayer, schoolLayer, schoolPolygonLayer, trainStationsLayer;
+      var damagedBuildingsLayer, hotosmLayer, landslideLayer, landslidesBGSLayer, mediaLayer, medicalLayer, medicalPolygonLayer, povertyLayer, roadsLayer, schoolLayer, schoolPolygonLayer, trainStationsLayer, valleyBlockingLayer, valleyLandslidesLayer;
       hotosmLayer = {
         name: 'HOTOSM',
         active: true,
@@ -50384,13 +50384,13 @@ var colorbrewer = {YlGn: {
       };
       povertyLayer = {
         name: 'poverty',
-        active: false,
+        active: true,
         displayed: true,
         index: 1,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
+          url: 'http://52.4.93.134/poverty/{z}/{x}/{y}.geojson'
         },
         style: styleHelper.povertyAvgStyle,
         selectedStyle: "povertyAvgStyle",
@@ -50528,6 +50528,20 @@ var colorbrewer = {YlGn: {
           }
         }
       };
+      landslidesBGSLayer = {
+        name: 'landslides-bgs',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://52.4.93.134/landslides-bgs/{z}/{x}/{y}.geojson'
+        },
+        metadata: {
+          name: "Landslides BGS",
+          source: "Worldbank"
+        }
+      };
       mediaLayer = {
         name: 'media',
         active: true,
@@ -50535,10 +50549,38 @@ var colorbrewer = {YlGn: {
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://104.236.203.232/media/{z}/{x}/{y}.geojson'
+          url: 'http://52.4.93.134/media/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Mainstream Media text",
+          source: "Worldbank"
+        }
+      };
+      valleyLandslidesLayer = {
+        name: 'valley-landslides',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://52.4.93.134/valley-landslides/{z}/{x}/{y}.geojson'
+        },
+        metadata: {
+          name: "Valley Landslides",
+          source: "Worldbank"
+        }
+      };
+      valleyBlockingLayer = {
+        name: 'valley-blocking',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://52.4.93.134/valley-blocking/{z}/{x}/{y}.geojson'
+        },
+        metadata: {
+          name: "Valley Blockings",
           source: "Worldbank"
         }
       };
@@ -50549,7 +50591,7 @@ var colorbrewer = {YlGn: {
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://104.236.203.232/landslide/{z}/{x}/{y}.geojson'
+          url: 'http://52.4.93.134/landslides-all/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Landslides",
@@ -50561,8 +50603,9 @@ var colorbrewer = {YlGn: {
         active: true,
         displayed: true,
         source: {
-          type: 'GeoJSON',
-          url: 'data/buildings.geojson'
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://52.4.93.134/damaged-buildings/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Damages Buildings",
@@ -50571,11 +50614,8 @@ var colorbrewer = {YlGn: {
       };
       this.layerGroups = [
         {
-          name: "Poverty",
-          layers: [povertyLayer]
-        }, {
           name: "Landslides",
-          layers: [landslideLayer]
+          layers: [landslideLayer, landslidesBGSLayer, valleyLandslidesLayer, valleyBlockingLayer]
         }, {
           name: "Media",
           layers: [mediaLayer]
