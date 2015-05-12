@@ -17,9 +17,11 @@
         displayed: true,
         index: 1,
         source: {
-          type: 'TileVector',
-          format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/poverty/{z}/{x}/{y}.geojson'
+          type: 'ImageWMS',
+          url: 'http://demo.geonode.org/geoserver/wms',
+          params: {
+            layers: "geonode:archiv"
+          }
         },
         style: styleHelper.povertyAvgStyle,
         selectedStyle: "povertyAvgStyle",
@@ -164,7 +166,7 @@
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/landslides-bgs/{z}/{x}/{y}.geojson'
+          url: 'http://52.7.33.4/landslides-bgs/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Landslides BGS",
@@ -178,7 +180,7 @@
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/media/{z}/{x}/{y}.geojson'
+          url: 'http://52.7.33.4/media/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Mainstream Media text",
@@ -192,7 +194,7 @@
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/valley-landslides/{z}/{x}/{y}.geojson'
+          url: 'http://52.7.33.4/valley-landslides/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Valley Landslides",
@@ -206,7 +208,7 @@
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/valley-blocking/{z}/{x}/{y}.geojson'
+          url: 'http://52.7.33.4/valley-blocking/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Valley Blockings",
@@ -220,7 +222,7 @@
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/landslides-all/{z}/{x}/{y}.geojson'
+          url: 'http://52.7.33.4/landslides-all/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Landslides",
@@ -234,7 +236,7 @@
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
-          url: 'http://52.4.93.134/damaged-buildings/{z}/{x}/{y}.geojson'
+          url: 'http://52.7.33.4/damaged-buildings/{z}/{x}/{y}.geojson'
         },
         metadata: {
           name: "Damages Buildings",
