@@ -155,6 +155,20 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       }
     }
   }
+  landslidesBGSLayer = {
+    name: 'landslides-bgs',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/landslides-bgs/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Landslides BGS"
+      source: "Worldbank"
+    }
+  }
   mediaLayer = {
     name: 'media',
     active: true,
@@ -162,10 +176,38 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     source: {
       type: 'TileVector',
       format: new ol.format.GeoJSON()
-      url: 'http://104.236.203.232/media/{z}/{x}/{y}.geojson'
+      url: 'http://52.7.33.4/media/{z}/{x}/{y}.geojson'
     }
     metadata: {
       name: "Mainstream Media text"
+      source: "Worldbank"
+    }
+  }
+  valleyLandslidesLayer= {
+    name: 'valley-landslides',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/valley-landslides/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Valley Landslides"
+      source: "Worldbank"
+    }
+  }
+  valleyBlockingLayer = {
+    name: 'valley-blocking',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/valley-blocking/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Valley Blockings"
       source: "Worldbank"
     }
   }
@@ -176,7 +218,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     source: {
       type: 'TileVector',
       format: new ol.format.GeoJSON()
-      url: 'http://104.236.203.232/landslide/{z}/{x}/{y}.geojson'
+      url: 'http://52.7.33.4/landslides-all/{z}/{x}/{y}.geojson'
     }
     metadata: {
       name: "Landslides"
@@ -188,8 +230,9 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     active: true,
     displayed: true,
     source: {
-      type: 'GeoJSON',
-      url: 'data/buildings.geojson'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/damaged-buildings/{z}/{x}/{y}.geojson'
     }
     metadata: {
       name: "Damages Buildings"
@@ -207,6 +250,9 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "Landslides"
       layers: [
         landslideLayer
+        landslidesBGSLayer
+        valleyLandslidesLayer
+        valleyBlockingLayer
       ]
     }
     {
