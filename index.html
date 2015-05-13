@@ -40,6 +40,31 @@
             <p>Injured: {{properties.Injured}}</p>
             <p>Houses Affected: {{properties.Houses_aff}}</p>
             <p>Killed: {{properties.Killed}}</p>
+            <p>Needs: {{properties.Needs}}</p>
+          </div>
+        </div>
+        <div class='valley-landslides' ng-show="name=='valley-landslides'">
+          <h4>{{properties.Name}}</h4>
+          <div class='content'>
+            <p>Date: {{properties.date}}</p>
+            <p>Size: {{properties.Size}}</p>
+            <p>Sensor: {{properties.Sensor}}</p>
+            <p>Location: {{properties.Location}}</p>
+            <p>Fail Type: {{properties.FailType}}</p>
+          </div>
+        </div>
+        <div class='landslides-bgs' ng-show="name=='landslides-bgs'">
+          <h4>{{properties.Name}}</h4>
+          <div class='content'>
+            <p>Date: {{properties.Date}}</p>
+            <p>Size: {{properties.Size}}</p>
+            <p>Source: {{properties.Source}}</p>
+          </div>
+        </div>
+        <div class='landslides' ng-show="name=='landslides'">
+          <h4>{{properties.org}}</h4>
+          <div class='content'>
+            <p>Area: {{properties.Shape_Area}}</p>
           </div>
         </div>
         <div class='osm' ng-show="sourceType=='OSM'">
