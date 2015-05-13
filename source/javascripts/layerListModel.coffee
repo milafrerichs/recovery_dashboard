@@ -10,15 +10,18 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
   }
   povertyLayer = {
     name: 'poverty',
-    active: false,
+    active: true,
     displayed: true,
     index: 1
     source: {
-      type: 'TileVector',
-      format: new ol.format.GeoJSON()
-      url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
+      type: 'ImageWMS',
+      url: 'http://demo.geonode.org/geoserver/wms'
+      params: {
+        layers: "geonode:archiv"
+        query_layers: "geonode:archiv"
+      }
     }
-    style: styleHelper.povertyAvgStyle
+    #style: styleHelper.povertyAvgStyle
     selectedStyle: "povertyAvgStyle"
     styleOptions: [
       {
@@ -227,7 +230,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
   }
   damagedBuildingsLayer = {
     name: 'damagedBuildings',
-    active: true,
+    active: false,
     displayed: true,
     source: {
       type: 'TileVector',
