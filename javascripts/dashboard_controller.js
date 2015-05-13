@@ -24,7 +24,8 @@
         defaults: {
           scrollWheelZoom: false,
           events: {
-            layers: ['mousemove', 'click']
+            layers: ['mousemove', 'click'],
+            map: ['singleclick', 'pointermove']
           }
         },
         nepal: {
@@ -35,13 +36,47 @@
         layers: layerListModel.list
       });
       olData.getMap().then(function(map) {
-        var overlay, showPopup;
+        var getFeatureInfo, overlay, pointerMove, showPopup;
         overlay = new ol.Overlay({
           element: document.getElementById('popup'),
           positioning: 'bottom-center',
           offset: [3, -25],
           position: [0, 0]
         });
+        getFeatureInfo = function(event, data) {
+          var coordinate, layer, pixel, url, viewResolution;
+          pixel = map.getEventPixel(data.event.originalEvent);
+          layer = map.forEachLayerAtPixel(pixel, (function(layer) {
+            return layer;
+          }), map, function(layer) {
+            return layer.get('name') === 'poverty';
+          });
+          if (layer && !$scope.overlayLock) {
+            viewResolution = map.getView().getResolution();
+            coordinate = data.coord;
+            url = layer.getSource().getGetFeatureInfoUrl(coordinate, viewResolution, 'EPSG:3857', {
+              'INFO_FORMAT': 'application/json'
+            });
+            return $http.get(url).success(function(feature) {
+              var overlayHidden;
+              $scope.name = 'poverty';
+              $scope.properties = feature ? feature.features[0].properties : {};
+              $scope.sourceType = 'worldbank';
+              overlayHidden = true;
+              if (feature.features.length < 1) {
+                map.removeOverlay(overlay);
+                overlayHidden = true;
+              } else {
+                if (overlayHidden) {
+                  map.addOverlay(overlay);
+                  overlayHidden = false;
+                  $scope.overlayLock = true;
+                }
+              }
+              return overlay.setPosition(coordinate);
+            });
+          }
+        };
         showPopup = function(event, feature, olEvent) {
           var layer, overlayHidden, pixel;
           pixel = map.getEventPixel(olEvent.originalEvent);
@@ -65,12 +100,18 @@
             if (overlayHidden) {
               map.addOverlay(overlay);
               overlayHidden = false;
+              $scope.overlayLock = true;
             }
           }
           return overlay.setPosition(map.getEventCoordinate(olEvent));
         };
+        pointerMove = function(event, data) {
+          return $scope.overlayLock = false;
+        };
         $scope.$on('openlayers.layers.medical.click', showPopup);
-        return $scope.$on('openlayers.layers.roads.click', showPopup);
+        $scope.$on('openlayers.layers.medical.mousemove', pointerMove);
+        $scope.$on('openlayers.map.singleclick', getFeatureInfo);
+        return $scope.$on('openlayers.map.pointermove', pointerMove);
       });
       $scope.layerGroups = layerListModel.layerGroups;
       $scope.layerList = layerListModel.list;

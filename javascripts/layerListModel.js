@@ -20,10 +20,10 @@
           type: 'ImageWMS',
           url: 'http://demo.geonode.org/geoserver/wms',
           params: {
-            layers: "geonode:archiv"
+            layers: "geonode:archiv",
+            query_layers: "geonode:archiv"
           }
         },
-        style: styleHelper.povertyAvgStyle,
         selectedStyle: "povertyAvgStyle",
         styleOptions: [
           {
@@ -231,7 +231,7 @@
       };
       damagedBuildingsLayer = {
         name: 'damagedBuildings',
-        active: true,
+        active: false,
         displayed: true,
         source: {
           type: 'TileVector',
@@ -245,8 +245,14 @@
       };
       this.layerGroups = [
         {
+          name: "Poverty",
+          layers: [povertyLayer]
+        }, {
           name: "Landslides",
           layers: [landslideLayer, landslidesBGSLayer, valleyLandslidesLayer, valleyBlockingLayer]
+        }, {
+          name: "Damages",
+          layers: [damagedBuildingsLayer]
         }, {
           name: "Media",
           layers: [mediaLayer]
