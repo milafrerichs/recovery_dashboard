@@ -82,6 +82,12 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "Main roads"
       source: "OSM"
     }
+    style: {
+      stroke: {
+        color: '#E0D6B2'
+        width: 2
+      }
+    }
   }
   medicalPolygonLayer = {
     name: 'medicalpolygon',
