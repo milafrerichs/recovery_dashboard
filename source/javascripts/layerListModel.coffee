@@ -47,15 +47,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "School Polygons"
       source: "OSM"
     }
-    style: {
-      fill: {
-        color: "blue"
-      }
-      stroke: {
-        width: 4
-        color: "blue"
-      }
-    }
+    style: styleHelper.schoolPolygonStyle
   }
   trainStationsLayer = {
     name: 'train_stations',
@@ -103,15 +95,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "Medical facilities Polygons"
       source: "OSM"
     }
-    style: {
-      fill: {
-        color: "red"
-      }
-      stroke: {
-        width: 4
-        color: "red"
-      }
-      }
+    style: styleHelper.medicalPolygonStyle
   }
   medicalLayer = {
     name: 'medical',
@@ -121,13 +105,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       type: 'GeoJSON',
       url: 'http://nepal.piensa.co/data/medical_point.json'
     }
-    style: {
-      image: {
-        icon: {
-          src: 'images/icons/hospital-12.png'
-        }
-      }
-    }
+    style: styleHelper.medicalStyle
     metadata: {
       name: "Medical facilities"
       source: "OSM"
@@ -146,13 +124,7 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "Schools"
       source: "OSM"
     }
-    style: {
-      image: {
-        icon: {
-          src: 'images/icons/school-12.png'
-        }
-      }
-    }
+    style: styleHelper.schoolStyle
   }
   mediaLayer = {
     name: 'media-layer',
