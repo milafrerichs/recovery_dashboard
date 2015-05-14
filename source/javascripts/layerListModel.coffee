@@ -1,4 +1,13 @@
 window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
+  collectCombinedLayers = (groups) ->
+    _.collect(groups, (group) -> collectLayers(group.combinedLayers))
+
+  collectLayers = (groups) ->
+    _.collect(groups, (group) -> group.layers)
+
+  allLayers = (groups)->
+    _.unique(_.flatten([collectLayers(groups),collectCombinedLayers(groups), hotosmLayer])).reverse()
+
   hotosmLayer= {
     name: 'HOTOSM',
     active: true,
@@ -218,13 +227,37 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     {
       name: "Public Facilities"
       layers: [
-        schoolLayer
-        schoolPolygonLayer
-        medicalLayer
-        medicalPolygonLayer
+      ]
+      combinedLayers: [
+        {
+          name: 'Schools'
+          visible: false
+          displayed: false
+          layers: [
+            schoolLayer
+            schoolPolygonLayer
+          ]
+          metadata: {
+            name: "Medical facilities Polygons"
+            source: "OSM"
+          }
+        }
+        {
+          name: 'Medical'
+          visible: true
+          displayed: true
+          layers: [
+            medicalLayer
+            medicalPolygonLayer
+          ]
+          metadata: {
+            name: "Medical facilities Polygons"
+            source: "OSM"
+          }
+        }
       ]
     }
   ]
-  this.list = _.unique(_.flatten([_.collect(this.layerGroups, (group) -> group.layers).reverse(),hotosmLayer])).reverse()
+  this.list = allLayers(this.layerGroups)
   return this
 ])

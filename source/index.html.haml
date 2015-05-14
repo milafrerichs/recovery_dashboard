@@ -32,3 +32,12 @@ title: Recovery Dashboard
         .metadata(ng-show="layer.metadata.show")
           .name Name: {{layer.metadata.name}}
           .source Source: {{layer.metadata.source}}
+      .layer(ng-repeat="combinedLayer in group.combinedLayers" ng-mouseover="showCombinedLayers()" ng-mouseout="resetCombinedLayers()" ng-model="combinedLayer")
+        .layer-check(ng-click="toggleCombinedDisplayed()")
+          %input(type="checkbox" ng-model="combinedLayer.displayed" ng-change="toggleCombinedVisibility()")
+            %label
+        .name(ng-model="visibleLayers" ng-click="toggleCombinedDisplayed()") {{combinedLayer.name}}
+        .info(ng-model="combinedLayer.metadata" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()" ng-value="combinedLayer.metadata") i
+        .metadata(ng-show="combinedLayer.metadata.show")
+          .name Name: {{combinedLayer.metadata.name}}
+          .source Source: {{combinedLayer.metadata.source}}
