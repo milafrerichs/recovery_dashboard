@@ -1,5 +1,5 @@
 # Recovery Dashboard: Nepal Earthquake
-
+[![Build Status](https://travis-ci.org/GFDRR/recovery_dashboard.svg)](https://travis-ci.org/GFDRR/recovery_dashboard)
 ## Stack
 This repo uses middleman, a static site generator, to build the site.
 Once built middleman (and ruby, etc) is not needed.

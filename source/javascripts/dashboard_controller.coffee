@@ -1,5 +1,5 @@
 class RecoveryDashboardCtrl
-  constructor: ($scope, $http, olData, olHelpers, layerListModel, styleHelper) ->
+  constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper) ->
     $scope.hideMetadata = () ->
       this.layer.metadata.show = false
     $scope.showMetadata = () ->
@@ -25,7 +25,7 @@ class RecoveryDashboardCtrl
         lon: 85.3
         zoom: 7
       }
-      layers: layerListModel.list
+      layers: layerListService.list
     })
     olData.getMap().then( (map) ->
       overlay = new ol.Overlay({
@@ -83,8 +83,8 @@ class RecoveryDashboardCtrl
       $scope.$on('openlayers.map.singleclick',getFeatureInfo)
       $scope.$on('openlayers.map.pointermove',pointerMove)
     )
-    $scope.layerGroups = layerListModel.layerGroups
-    $scope.layerList = layerListModel.list
+    $scope.layerGroups = layerListService.layerGroups
+    $scope.layerList = layerListService.list
 
-RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListModel', 'styleHelper']
-window.dashboard.controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)
+RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper']
+angular.module('dashboard').controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)
