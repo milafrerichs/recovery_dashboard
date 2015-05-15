@@ -4,7 +4,7 @@
   "description": "## Stack This repo uses middleman, a static site generator, to build the site. Once built middleman (and ruby, etc) is not needed.",
   "main": " ",
   "scripts": {
-    "test": "karma"
+    'test': './node_modules/.bin/karma start --single-run --browsers PhantomJS'
   },
   "repository": {
     "type": "git",
