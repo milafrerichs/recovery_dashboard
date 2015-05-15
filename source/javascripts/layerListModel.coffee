@@ -239,6 +239,20 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       source: "Worldbank"
     }
   }
+  nasaLayer = {
+    name: 'nasa',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Damages from NASA"
+      source: "NASA"
+    }
+  }
   this.layerGroups = [
     {
       name: "Poverty"
@@ -259,6 +273,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       name: "Damages"
       layers: [
         damagedBuildingsLayer
+        nasaLayer
       ]
     }
     {
