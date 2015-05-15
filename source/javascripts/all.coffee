@@ -1,6 +1,6 @@
 #= require underscore
 #= require jquery
-#= require "openlayers3/build/ol-debug.js"
+#= require "openlayers3/build/ol.js"
 #= require angular
 #= require angular-sanitize
 #= require angular-openlayers-directive
@@ -9,5 +9,6 @@
 #= require dashboard
 #= require style-helper
 #= require layerListModel
+#= require layer-list-service
 #= require dashboard_controller
 #= require sidebar-controller
