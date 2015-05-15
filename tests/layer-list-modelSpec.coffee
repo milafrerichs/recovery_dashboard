@@ -9,5 +9,5 @@ describe 'layerListModel', ->
 
   describe 'Constructor', ->
     it 'list returns the layers from layerGroups', ->
-      expect(@layerListModel.layerGroups.length).to.eq(4)
+      expect(@layerListModel.layerGroups.length).to.eq(6)
 
