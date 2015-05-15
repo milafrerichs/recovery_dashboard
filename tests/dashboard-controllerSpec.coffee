@@ -2,10 +2,9 @@ describe 'RecoveryDashboardCtrl', ->
   beforeEach(module('dashboard'))
 
   beforeEach module(($provide) ->
-    @layerList = []
-    $provide.value 'layerListModel', {
-      list: @layerList
+    $provide.value 'layerListService', {
       layerGroups: []
+      list: []
     }
     return
   )
