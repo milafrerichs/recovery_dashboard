@@ -2,7 +2,7 @@
   var RecoveryDashboardCtrl;
 
   RecoveryDashboardCtrl = (function() {
-    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListModel, styleHelper) {
+    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper) {
       $scope.hideMetadata = function() {
         return this.layer.metadata.show = false;
       };
@@ -20,6 +20,17 @@
       $scope.changeStyle = function() {
         return this.layer.style = $scope.styleHelper[this.styleOptions.styleParam];
       };
+      $scope.showGroup = function() {
+        var activateGroup;
+        activateGroup = this.group;
+        return _.each($scope.layerGroups, function(group) {
+          if (group === activateGroup) {
+            return group.active = true;
+          } else {
+            return group.active = false;
+          }
+        });
+      };
       angular.extend($scope, {
         defaults: {
           scrollWheelZoom: false,
@@ -33,7 +44,7 @@
           lon: 85.3,
           zoom: 7
         },
-        layers: layerListModel.list
+        layers: layerListService.list
       });
       olData.getMap().then(function(map) {
         var getFeatureInfo, overlay, pointerMove, showPopup;
@@ -113,16 +124,16 @@
         $scope.$on('openlayers.map.singleclick', getFeatureInfo);
         return $scope.$on('openlayers.map.pointermove', pointerMove);
       });
-      $scope.layerGroups = layerListModel.layerGroups;
-      $scope.layerList = layerListModel.list;
+      $scope.layerGroups = layerListService.layerGroups;
+      $scope.layerList = layerListService.list;
     }
 
     return RecoveryDashboardCtrl;
 
   })();
 
-  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListModel', 'styleHelper'];
+  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper'];
 
-  window.dashboard.controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl);
+  angular.module('dashboard').controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl);
 
 }).call(this);

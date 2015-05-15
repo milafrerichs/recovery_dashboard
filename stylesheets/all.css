@@ -894,6 +894,38 @@ input[type="submit"] {
         /* line 49, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
         #recovery-dashboard #layers .layer .sub-styles .subcheck p {
           float: left; }
+/* line 52, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+#recovery-dashboard #groups .group-header {
+  border-bottom: 1px solid #ccc;
+  background: #8CA3AB; }
+  /* line 15, /Development/projects/recovery_dashboard/source/stylesheets/bourbon/addons/_clearfix.scss */
+  #recovery-dashboard #groups .group-header:after {
+    content: "";
+    display: table;
+    clear: both; }
+  /* line 56, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+  #recovery-dashboard #groups .group-header .group {
+    float: left;
+    padding: 5px 10px;
+    border-right: 1px solid #ccc; }
+    /* line 60, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    #recovery-dashboard #groups .group-header .group .tooltip {
+      position: absolute;
+      display: none; }
+    /* line 63, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    #recovery-dashboard #groups .group-header .group.active {
+      background: #7585A9;
+      color: #fff; }
+    /* line 66, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    #recovery-dashboard #groups .group-header .group:hover {
+      cursor: pointer; }
+/* line 68, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+#recovery-dashboard #groups .groups {
+  padding: 10px; }
+  /* line 70, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+  #recovery-dashboard #groups .groups.active {
+    background: #7585A9;
+    color: #fff; }
 
 /* line 2, /Development/projects/recovery_dashboard/source/stylesheets/components/_popup.sass */
 #recovery-dashboard #popup {

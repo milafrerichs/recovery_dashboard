@@ -1,4 +1,6 @@
 (function() {
-  window.dashboard = angular.module("dashboard", ["openlayers-directive"]);
+  var dashboard;
+
+  dashboard = angular.module("dashboard", ["openlayers-directive"]);
 
 }).call(this);

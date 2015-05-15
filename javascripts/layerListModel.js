@@ -1,7 +1,7 @@
 (function() {
-  window.dashboard.service('layerListModel', [
+  angular.module('dashboard').service('layerListModel', [
     '$rootScope', 'styleHelper', function($rootScope, styleHelper) {
-      var damagedBuildingsLayer, hotosmLayer, landslideLayer, landslidesBGSLayer, mediaLayer, medicalLayer, medicalPolygonLayer, povertyLayer, roadsLayer, schoolLayer, schoolPolygonLayer, trainStationsLayer, valleyBlockingLayer, valleyLandslidesLayer;
+      var damagedBuildingsLayer, hotosmLayer, landslideLayer, landslidesBGSLayer, mediaLayer, medicalLayer, medicalPolygonLayer, nasaLayer, povertyLayer, roadsLayer, schoolLayer, schoolPolygonLayer, trainStationsLayer, valleyBlockingLayer, valleyLandslidesLayer;
       hotosmLayer = {
         name: 'HOTOSM',
         active: true,
@@ -52,15 +52,7 @@
           name: "School Polygons",
           source: "OSM"
         },
-        style: {
-          fill: {
-            color: "blue"
-          },
-          stroke: {
-            width: 4,
-            color: "blue"
-          }
-        }
+        style: styleHelper.schoolPolygonStyle
       };
       trainStationsLayer = {
         name: 'train_stations',
@@ -94,6 +86,12 @@
         metadata: {
           name: "Main roads",
           source: "OSM"
+        },
+        style: {
+          stroke: {
+            color: '#E0D6B2',
+            width: 2
+          }
         }
       };
       medicalPolygonLayer = {
@@ -108,15 +106,7 @@
           name: "Medical facilities Polygons",
           source: "OSM"
         },
-        style: {
-          fill: {
-            color: "red"
-          },
-          stroke: {
-            width: 4,
-            color: "red"
-          }
-        }
+        style: styleHelper.medicalPolygonStyle
       };
       medicalLayer = {
         name: 'medical',
@@ -126,13 +116,7 @@
           type: 'GeoJSON',
           url: 'http://nepal.piensa.co/data/medical_point.json'
         },
-        style: {
-          image: {
-            icon: {
-              src: 'images/icons/hospital-12.png'
-            }
-          }
-        },
+        style: styleHelper.medicalStyle,
         metadata: {
           name: "Medical facilities",
           source: "OSM"
@@ -151,13 +135,7 @@
           name: "Schools",
           source: "OSM"
         },
-        style: {
-          image: {
-            icon: {
-              src: 'images/icons/school-12.png'
-            }
-          }
-        }
+        style: styleHelper.schoolStyle
       };
       landslidesBGSLayer = {
         name: 'landslides-bgs',
@@ -243,32 +221,42 @@
           source: "Worldbank"
         }
       };
+      nasaLayer = {
+        name: 'nasa',
+        active: true,
+        displayed: true,
+        source: {
+          type: 'TileVector',
+          format: new ol.format.GeoJSON(),
+          url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
+        },
+        metadata: {
+          name: "Damages from NASA",
+          source: "NASA"
+        }
+      };
       this.layerGroups = [
         {
-          name: "Poverty",
+          name: "Statistics",
+          iconClass: 'briefcase',
+          identifier: 'statistics',
+          active: true,
           layers: [povertyLayer]
         }, {
-          name: "Landslides",
-          layers: [landslideLayer, landslidesBGSLayer, valleyLandslidesLayer, valleyBlockingLayer]
-        }, {
           name: "Damages",
-          layers: [damagedBuildingsLayer]
+          iconClass: 'flag',
+          layers: [landslideLayer, landslidesBGSLayer, valleyLandslidesLayer, valleyBlockingLayer, damagedBuildingsLayer, nasaLayer]
         }, {
           name: "Media",
+          iconClass: 'newspaper-o',
           layers: [mediaLayer]
         }, {
           name: "Infrastructure",
-          layers: [roadsLayer, trainStationsLayer]
-        }, {
-          name: "Public Facilities",
-          layers: [schoolLayer, schoolPolygonLayer, medicalLayer, medicalPolygonLayer]
+          iconClass: 'road',
+          layers: [roadsLayer, trainStationsLayer, schoolLayer, schoolPolygonLayer, medicalLayer, medicalPolygonLayer]
         }
       ];
-      this.list = _.unique(_.flatten([
-        _.collect(this.layerGroups, function(group) {
-          return group.layers;
-        }).reverse(), hotosmLayer
-      ])).reverse();
+      this.baseLayer = hotosmLayer;
       return this;
     }
   ]);

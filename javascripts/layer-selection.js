@@ -6,6 +6,6 @@
 
   })();
 
-  window.dashboard.directive('LayerSelection', this.LayerSelection);
+  angular.module('dashboard').directive('LayerSelection', this.LayerSelection);
 
 }).call(this);

@@ -1,5 +1,5 @@
 (function() {
-  window.dashboard.factory('damageAggregationService', [
+  dashboard.factory('damageAggregationService', [
     '$q', 'geoJSONService', function($q, geoJSONService) {
       var getLayer;
       getLayer = function() {

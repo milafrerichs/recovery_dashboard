@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
     <title>Recovery Dashboard</title>
-    <link href="stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link href="stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="stylesheets/all.css" rel="stylesheet" type="text/css" />
   </head>
   <body class='index'>
     <div class='sidebar' ng-class='{active: show}' ng-controller='SidebarCtrl'>
@@ -31,6 +31,12 @@
           <div class='content'>
             <p>Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %</p>
             <p>People: {{properties.nIndividua}}</p>
+          </div>
+        </div>
+        <div class='nasa' ng-show="name=='nasa'">
+          <h4>{{properties.Name}}</h4>
+          <div class='content'>
+            <p></p>
           </div>
         </div>
         <div class='media' ng-show="name=='media'">
@@ -75,25 +81,44 @@
         </div>
       </div>
       <div id='layers'>
-        <div class='groups' ng-repeat='group in layerGroups'>
-          <h4>{{group.name}}</h4>
-          <div class='layer' ng-model='layer' ng-mouseout='toggleVisibility()' ng-mouseover='layer.visible=true;' ng-repeat='layer in group.layers'>
-            <div class='layer-check' ng-click='toggleDisplayed()'>
-              <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
-                <label></label>
-              </input>
-            </div>
-            <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
-            <div class='info' ng-model='layer.metadata.show' ng-mouseout='hideMetadata()' ng-mouseover='showMetadata()'>i</div>
-            <div class='sub-styles' ng-show='layer.styleOptions'>
-              <div class='subcheck' ng-model='styleOptions' ng-repeat='styleOptions in layer.styleOptions'>
-                <input name='layerSubStyle' ng-change='changeStyle()' ng-model='layer.selectedStyle' ng-value='styleOptions.styleParam' type='radio'>
-                <p>{{styleOptions.styleName}}</p>
+        <div id='groups'>
+          <ul class='group-header'>
+            <li class='group' ng-class='{active: group.active}' ng-click='showGroup()' ng-model='group' ng-repeat='group in layerGroups'>
+              <i class='fa fa-{{group.iconClass}}'></i>
+              <div class='tooltip'>
+                {{group.name}}
+              </div>
+            </li>
+          </ul>
+          <div class='groups' ng-class='{active: group.active}' ng-repeat='group in layerGroups' ng-show='group.active'>
+            <div class='layer' ng-model='layer' ng-mouseout='toggleVisibility()' ng-mouseover='layer.visible=true;' ng-repeat='layer in group.layers'>
+              <div class='layer-check' ng-click='toggleDisplayed()'>
+                <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
+                  <label></label>
+                </input>
+              </div>
+              <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
+              <div class='info' ng-model='layer.metadata.show' ng-mouseout='hideMetadata()' ng-mouseover='showMetadata()'>i</div>
+              <div class='sub-styles' ng-show='layer.styleOptions'>
+                <div class='subcheck' ng-model='styleOptions' ng-repeat='styleOptions in layer.styleOptions'>
+                  <input name='layerSubStyle' ng-change='changeStyle()' ng-model='layer.selectedStyle' ng-value='styleOptions.styleParam' type='radio'>
+                  <p>{{styleOptions.styleName}}</p>
+                </div>
+              </div>
+              <div class='metadata' ng-show='layer.metadata.show'>
+                <div class='name'>Name: {{layer.metadata.name}}</div>
+                <div class='source'>Source: {{layer.metadata.source}}</div>
               </div>
             </div>
-            <div class='metadata' ng-show='layer.metadata.show'>
-              <div class='name'>Name: {{layer.metadata.name}}</div>
-              <div class='source'>Source: {{layer.metadata.source}}</div>
+          </div>
+          <div class='active-groups' ng-repeat='group in layerGroups'>
+            <div class='layer' ng-repeat='layer in group.layers' ng-show='layer.displayed'>
+              <div class='layer-check' ng-click='toggleDisplayed()'>
+                <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
+                  <label></label>
+                </input>
+              </div>
+              <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
             </div>
           </div>
         </div>
