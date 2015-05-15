@@ -284,6 +284,6 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       ]
     }
   ]
-  this.list = _.unique(_.flatten([_.collect(this.layerGroups, (group) -> group.layers).reverse(),hotosmLayer])).reverse()
+  this.baseLayer = hotosmLayer
   return this
 ])
