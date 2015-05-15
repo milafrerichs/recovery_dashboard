@@ -23,6 +23,7 @@ module.exports = function(config) {
       'bower_components/d3/d3.js',
       'bower_components/colorbrewer/colorbrewer.js',
       'bower_components/openlayers3/build/ol.js',
+      'bower_components/underscore/underscore.js',
       'source/javascripts/*.coffee',
       'tests/**/*Spec.coffee'
     ],
