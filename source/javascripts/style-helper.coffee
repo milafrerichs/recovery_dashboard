@@ -26,8 +26,7 @@ angular.module('dashboard').factory('styleHelper', ->
     new (ol.style.Style)({
       image: new (ol.style.Icon)(src: image)
       geometry: (feature) ->
-        coordinates = feature.getGeometry().getFlatInteriorPoint()
-        return new ol.geom.Point(coordinates)
+        return feature.getGeometry().getInteriorPoint()
     })
 
   styleImage = (image) ->
