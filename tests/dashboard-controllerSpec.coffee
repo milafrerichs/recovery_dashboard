@@ -18,3 +18,14 @@ describe 'RecoveryDashboardCtrl', ->
     it 'has zoom level of 7', ->
       expect(@scope.nepal.zoom).to.eq(7)
 
+    it 'has map defaults', ->
+      expect(@scope.defaults).to.exist
+
+    it 'map default has events', ->
+      expect(@scope.defaults).to.have.any.keys('events')
+
+    it 'events for layers', ->
+      expect(@scope.defaults.events).to.have.any.keys('layers')
+
+    it 'events for layers has click listener', ->
+      expect(@scope.defaults.events.layers).to.include('click')
