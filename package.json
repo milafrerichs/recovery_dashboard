@@ -1,0 +1,30 @@
+{
+  "name": "recovery_dashboard",
+  "version": "0.0.0",
+  "description": "## Stack This repo uses middleman, a static site generator, to build the site. Once built middleman (and ruby, etc) is not needed.",
+  "main": " ",
+  "scripts": {
+    "test": "karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/milafrerichs/recovery_dashboard.git"
+  },
+  "author": "Mila Frerichs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/milafrerichs/recovery_dashboard/issues"
+  },
+  "homepage": "https://github.com/milafrerichs/recovery_dashboard",
+  "devDependencies": {
+    "angular-mocks": "^1.3.15",
+    "chai": "^2.3.0",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-coffee-preprocessor": "^0.2.1",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-sinon-chai": "^0.3.0",
+    "mocha": "^2.2.4"
+  }
+}
