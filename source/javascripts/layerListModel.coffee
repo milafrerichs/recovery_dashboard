@@ -10,15 +10,18 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
   }
   povertyLayer = {
     name: 'poverty',
-    active: false,
+    active: true,
     displayed: true,
     index: 1
     source: {
-      type: 'TileVector',
-      format: new ol.format.GeoJSON()
-      url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
+      type: 'ImageWMS',
+      url: 'http://demo.geonode.org/geoserver/wms'
+      params: {
+        layers: "geonode:archiv"
+        query_layers: "geonode:archiv"
+      }
     }
-    style: styleHelper.povertyAvgStyle
+    #style: styleHelper.povertyAvgStyle
     selectedStyle: "povertyAvgStyle"
     styleOptions: [
       {
@@ -205,7 +208,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
   }
   damagedBuildingsLayer = {
     name: 'damagedBuildings',
-    active: true,
+    active: false,
     displayed: true,
     source: {
       type: 'TileVector',
@@ -215,6 +218,20 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     metadata: {
       name: "Damages Buildings"
       source: "Worldbank"
+    }
+  }
+  nasaLayer = {
+    name: 'nasa',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Damages from NASA"
+      source: "NASA"
     }
   }
   this.layerGroups = [
@@ -235,6 +252,8 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
         landslidesBGSLayer
         valleyLandslidesLayer
         valleyBlockingLayer
+        damagedBuildingsLayer
+        nasaLayer
       ]
     }
     {

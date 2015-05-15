@@ -12,6 +12,10 @@ title: Recovery Dashboard
       .content
         %p Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %
         %p People: {{properties.nIndividua}}
+    .nasa(ng-show="name=='nasa'")
+      %h4 {{properties.Name}}
+      .content
+        %p
     .media(ng-show="name=='media'")
       %h4 {{properties.District}}
       .content
