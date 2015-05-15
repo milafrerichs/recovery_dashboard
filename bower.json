@@ -20,5 +20,8 @@
     "angular-openlayers-directive":"",
     "d3":"",
     "colorbrewer":""
+  },
+  "devDependencies": {
+    
   }
 }
