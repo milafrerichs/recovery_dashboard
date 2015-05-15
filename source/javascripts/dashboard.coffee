@@ -1,2 +1,2 @@
-window.dashboard = angular.module("dashboard", ["openlayers-directive"])
+dashboard = angular.module("dashboard", ["openlayers-directive"])
 

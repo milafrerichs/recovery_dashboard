@@ -1,4 +1,4 @@
-window.dashboard.factory('styleHelper', ->
+angular.module('dashboard').factory('styleHelper', ->
   buildingTypeScale = d3.scale.ordinal().domain(["1","2","3"]).range(["#d7191c","#fdae61","#ffffbf"])
   povertyScale = d3.scale.linear().domain([0, 1]).range(colorbrewer.Reds[5])
 

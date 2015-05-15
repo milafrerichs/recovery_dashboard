@@ -5,5 +5,5 @@ class SidebarCtrl
       $scope.show = !$scope.show
 
 SidebarCtrl.$inject = ['$scope']
-window.dashboard.controller('SidebarCtrl', SidebarCtrl)
+angular.module('dashboard').controller('SidebarCtrl', SidebarCtrl)
 

@@ -1,13 +1,4 @@
-window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
-  collectCombinedLayers = (groups) ->
-    _.collect(groups, (group) -> collectLayers(group.combinedLayers))
-
-  collectLayers = (groups) ->
-    _.collect(groups, (group) -> group.layers)
-
-  allLayers = (groups)->
-    _.unique(_.flatten([collectLayers(groups),collectCombinedLayers(groups), hotosmLayer])).reverse()
-
+angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
   hotosmLayer= {
     name: 'HOTOSM',
     active: true,
@@ -19,12 +10,13 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
   }
   povertyLayer = {
     name: 'poverty',
-    active: true,
+    active: false,
     displayed: true,
     index: 1
     source: {
-      type: 'TopoJSON',
-      url: 'data/poverty.json'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
     }
     style: styleHelper.povertyAvgStyle
     selectedStyle: "povertyAvgStyle"
@@ -163,18 +155,59 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       }
     }
   }
-  mediaLayer = {
-    name: 'media-layer',
+  landslidesBGSLayer = {
+    name: 'landslides-bgs',
     active: true,
     displayed: true,
     source: {
-      type: 'GeoJSON',
-      url: 'data/media.geojson'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/landslides-bgs/{z}/{x}/{y}.geojson'
     }
-    style: (feature, resolution) ->
-      debugger
+    metadata: {
+      name: "Landslides BGS"
+      source: "Worldbank"
+    }
+  }
+  mediaLayer = {
+    name: 'media',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/media/{z}/{x}/{y}.geojson'
+    }
     metadata: {
       name: "Mainstream Media text"
+      source: "Worldbank"
+    }
+  }
+  valleyLandslidesLayer= {
+    name: 'valley-landslides',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/valley-landslides/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Valley Landslides"
+      source: "Worldbank"
+    }
+  }
+  valleyBlockingLayer = {
+    name: 'valley-blocking',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/valley-blocking/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Valley Blockings"
       source: "Worldbank"
     }
   }
@@ -183,8 +216,9 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     active: true,
     displayed: true,
     source: {
-      type: 'GeoJSON',
-      url: 'data/landslides.geojson'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/landslides-all/{z}/{x}/{y}.geojson'
     }
     metadata: {
       name: "Landslides"
@@ -196,8 +230,9 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
     active: true,
     displayed: true,
     source: {
-      type: 'GeoJSON',
-      url: 'data/buildings.geojson'
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/damaged-buildings/{z}/{x}/{y}.geojson'
     }
     metadata: {
       name: "Damages Buildings"
@@ -209,6 +244,21 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       name: "Poverty"
       layers: [
         povertyLayer
+      ]
+    }
+    {
+      name: "Landslides"
+      layers: [
+        landslideLayer
+        landslidesBGSLayer
+        valleyLandslidesLayer
+        valleyBlockingLayer
+      ]
+    }
+    {
+      name: "Damages"
+      layers: [
+        damagedBuildingsLayer
       ]
     }
     {
@@ -258,6 +308,6 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       ]
     }
   ]
-  this.list = allLayers(this.layerGroups)
+  this.baseLayer = hotosmLayer
   return this
 ])
