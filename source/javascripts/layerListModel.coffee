@@ -1,4 +1,4 @@
-window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
+angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
   hotosmLayer= {
     name: 'HOTOSM',
     active: true,
@@ -203,6 +203,6 @@ window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootS
       ]
     }
   ]
-  this.list = _.unique(_.flatten([_.collect(this.layerGroups, (group) -> group.layers).reverse(),hotosmLayer])).reverse()
+  this.baseLayer = hotosmLayer
   return this
 ])
