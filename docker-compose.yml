@@ -1,0 +1,4 @@
+dashboard:
+  build: .
+  ports:
+    - 4567:4567
