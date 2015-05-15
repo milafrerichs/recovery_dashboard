@@ -219,13 +219,17 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
   }
   this.layerGroups = [
     {
-      name: "Poverty"
+      name: "Statistics"
+      iconClass: 'briefcase'
+      identifier: 'statistics'
+      active: true
       layers: [
         povertyLayer
       ]
     }
     {
-      name: "Landslides"
+      name: "Damages"
+      iconClass: 'flag'
       layers: [
         landslideLayer
         landslidesBGSLayer
@@ -234,27 +238,18 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       ]
     }
     {
-      name: "Damages"
-      layers: [
-        damagedBuildingsLayer
-      ]
-    }
-    {
       name: "Media"
+      iconClass: 'newspaper-o'
       layers: [
         mediaLayer
       ]
     }
     {
       name: "Infrastructure"
+      iconClass: 'road'
       layers: [
         roadsLayer
         trainStationsLayer
-      ]
-    }
-    {
-      name: "Public Facilities"
-      layers: [
         schoolLayer
         schoolPolygonLayer
         medicalLayer
