@@ -59,4 +59,4 @@ class RecoveryDashboardCtrl
     $scope.layerList = layerListModel.list
 
 RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListModel', 'styleHelper']
-window.dashboard.controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)
+angular.module('dashboard').controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)

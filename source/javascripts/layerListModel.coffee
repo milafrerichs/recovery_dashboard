@@ -1,4 +1,4 @@
-window.dashboard.service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
+angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelper', ($rootScope, styleHelper) ->
   hotosmLayer= {
     name: 'HOTOSM',
     active: true,
