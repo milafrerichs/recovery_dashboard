@@ -1,6 +1,15 @@
 describe 'RecoveryDashboardCtrl', ->
   beforeEach(module('dashboard'))
 
+  beforeEach module(($provide) ->
+    @layerList = []
+    $provide.value 'layerListModel', {
+      list: @layerList
+      layerGroups: []
+    }
+    return
+  )
+
   beforeEach inject  ($controller, $rootScope) ->
     @scope = $rootScope.$new()
     @controller = $controller('RecoveryDashboardCtrl', {
@@ -29,3 +38,13 @@ describe 'RecoveryDashboardCtrl', ->
 
     it 'events for layers has click listener', ->
       expect(@scope.defaults.events.layers).to.include('click')
+
+    it 'has layers from layerListModel', ->
+      expect(@scope.layers).to.be.empty
+
+  describe 'scope', ->
+    it 'has layerGroups assigned from layerListModel', ->
+      expect(@scope.layerGroups).to.be.empty
+
+    it 'has layerList assigned from layerListModel', ->
+      expect(@scope.layerList).to.be.empty
