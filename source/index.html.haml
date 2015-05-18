@@ -12,6 +12,17 @@ title: Recovery Dashboard
       .content
         %p Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %
         %p People: {{properties.nIndividua}}
+    .nasa(ng-show="name=='nasa'")
+      %h4 {{properties.Name}}
+      .content
+        %p
+    .buildings(ng-show="name=='db-admin'")
+      %h4 {{properties.OBJECTID}}
+      .content
+        %p Overall Damaged Buildings: {{properties.BUILDING_C}}
+        %p Destroyed Buildings: {{properties.DESTROYED_}}
+        %p Moderate Damaged Buildings: {{properties.MODERATE_D}}
+        %p Minor Damaged Buildings: {{properties.MINOR_DAMA}}
     .media(ng-show="name=='media'")
       %h4 {{properties.District}}
       .content
@@ -19,6 +30,25 @@ title: Recovery Dashboard
         %p Injured: {{properties.Injured}}
         %p Houses Affected: {{properties.Houses_aff}}
         %p Killed: {{properties.Killed}}
+        %p Needs: {{properties.Needs}}
+    .valley-landslides(ng-show="name=='valley-landslides'")
+      %h4 {{properties.Name}}
+      .content
+        %p Date: {{properties.date}}
+        %p Size: {{properties.Size}}
+        %p Sensor: {{properties.Sensor}}
+        %p Location: {{properties.Location}}
+        %p Fail Type: {{properties.FailType}}
+    .landslides-bgs(ng-show="name=='landslides-bgs'")
+      %h4 {{properties.Name}}
+      .content
+        %p Date: {{properties.Date}}
+        %p Size: {{properties.Size}}
+        %p Source: {{properties.Source}}
+    .landslides(ng-show="name=='landslides'")
+      %h4 {{properties.org}}
+      .content
+        %p Area: {{properties.Shape_Area}}
     .osm(ng-show="sourceType=='OSM'")
       %h4 {{properties.NAME}}
       .content
