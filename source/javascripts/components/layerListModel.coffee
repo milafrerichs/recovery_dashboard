@@ -8,10 +8,29 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
     }
   }
+  damaged_buildings_adminLayer = {
+    name: 'db-admin',
+    active: true,
+    displayed: true,
+    index: 2
+    source: {
+      type: 'ImageWMS',
+      url: 'http://demo.geonode.org/geoserver/wms'
+      params: {
+        layers: "geonode:destroyed_buildings"
+        query_layers: "geonode:destroyed_buildings"
+        styles: "destroyed_buildings"
+      }
+    }
+    metadata: {
+      name: "Damaged Buildings"
+      source: "Worldbank"
+    }
+  }
   povertyLayer = {
     name: 'poverty',
     active: true,
-    displayed: true,
+    displayed: false,
     index: 1
     source: {
       type: 'ImageWMS',
@@ -253,7 +272,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     {
       name: "Damages"
       layers: [
-        damagedBuildingsLayer
+        damaged_buildings_adminLayer
         nasaLayer
       ]
     }
