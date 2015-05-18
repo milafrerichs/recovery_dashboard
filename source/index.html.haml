@@ -16,6 +16,13 @@ title: Recovery Dashboard
       %h4 {{properties.Name}}
       .content
         %p
+    .buildings(ng-show="name=='db-admin'")
+      %h4 {{properties.OBJECTID}}
+      .content
+        %p Overall Damaged Buildings: {{properties.BUILDING_C}}
+        %p Destroyed Buildings: {{properties.DESTROYED_}}
+        %p Moderate Damaged Buildings: {{properties.MODERATE_D}}
+        %p Minor Damaged Buildings: {{properties.MINOR_DAMA}}
     .media(ng-show="name=='media'")
       %h4 {{properties.District}}
       .content
