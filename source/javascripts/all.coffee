@@ -9,6 +9,7 @@
 //= require components/dashboard
 //= require components/style-helper
 //= require components/layerListModel
+//= require components/info-window
 //= require components/layer-list-service
 //= require components/dashboard_controller
 //= require components/sidebar-controller
