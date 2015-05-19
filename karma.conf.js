@@ -19,12 +19,12 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'bower_components/angular-openlayers-directive/dist/angular-openlayers-directive.js',
-      'source/javascripts/dashboard.coffee',
+      'source/javascripts/components/dashboard.coffee',
       'bower_components/d3/d3.js',
       'bower_components/colorbrewer/colorbrewer.js',
       'bower_components/openlayers3/build/ol.js',
       'bower_components/underscore/underscore.js',
-      'source/javascripts/*.coffee',
+      'source/javascripts/**/*.coffee',
       'tests/**/*Spec.coffee'
     ],
 
@@ -38,8 +38,20 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.coffee': ['coverage'],
-      '**/*.coffee': ['coffee']
+      'source/javascripts/components/**/*.coffee': ['coverage'],
+      'tests/**/*.coffee': ['coffee']
+    },
+
+    coverageReporter: {
+      instrumenters: { ibrik : require('ibrik') },
+      instrumenter: {
+        '**/*.coffee': 'ibrik'
+      },
+      reporters: [
+        // reporters not supporting the `file` property
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'lcov-report' },
+        ],
     },
 
 
