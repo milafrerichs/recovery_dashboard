@@ -1,5 +1,6 @@
 # Recovery Dashboard: Nepal Earthquake
 [![Build Status](https://travis-ci.org/GFDRR/recovery_dashboard.svg)](https://travis-ci.org/GFDRR/recovery_dashboard)
+[![codecov.io](http://codecov.io/github/milafrerichs/recovery_dashboard/coverage.svg?branch=master)](http://codecov.io/github/milafrerichs/recovery_dashboard?branch=master)
 ## Stack
 This repo uses middleman, a static site generator, to build the site.
 Once built middleman (and ruby, etc) is not needed.
