@@ -1,0 +1,30 @@
+#popup
+  %info-window(class="poverty" show-property="name" show-value="poverty" header="{{properties.OBJECTID}}")
+    %p Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %
+    %p People: {{properties.nIndividua}}
+  %info-window(class="nasa" show-property="name" show-value="nasa" header="{{properties.Name}}")
+  %info-window(class="buildings" show-property="name" show-value="db-admin" header="{{properties.OBJECTID}}")
+    %p Overall Damaged Buildings: {{properties.BUILDING_C}}
+    %p Destroyed Buildings: {{properties.DESTROYED_}}
+    %p Moderate Damaged Buildings: {{properties.MODERATE_D}}
+    %p Minor Damaged Buildings: {{properties.MINOR_DAMA}}
+  %info-window(class="media" show-property="name" show-value="media" header="{{properties.District}}")
+    %p Date: {{properties.Date}}
+    %p Injured: {{properties.Injured}}
+    %p Houses Affected: {{properties.Houses_aff}}
+    %p Killed: {{properties.Killed}}
+    %p Needs: {{properties.Needs}}
+  %info-window(class="valley-landslides" show-property="name" show-value="valley-landslides" header="{{properties.Name}}")
+    %p Date: {{properties.date}}
+    %p Size: {{properties.Size}}
+    %p Sensor: {{properties.Sensor}}
+    %p Location: {{properties.Location}}
+    %p Fail Type: {{properties.FailType}}
+  %info-window(class="landslides-bgs" show-property="name" show-value="landslides-bgs" header="{{properties.Name}}")
+    %p Date: {{properties.Date}}
+    %p Size: {{properties.Size}}
+    %p Source: {{properties.Source}}
+  %info-window(class="landslides" show-property="name" show-value="landslides" header="{{properties.org}}")
+    %p Area: {{properties.Shape_Area}}
+  %info-window(class="osm" show-property="sourceType" show-value="OSM" header="{{properties.NAME}}")
+    %p OSM_ID: {{properties.OSM_ID}}
