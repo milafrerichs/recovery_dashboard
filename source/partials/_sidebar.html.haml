@@ -1,4 +1,4 @@
-.sidebar(ng-controller="SidebarCtrl" ng-class="{active: show}")
+.sidebar.ng-cloak(ng-controller="SidebarCtrl" ng-class="{active: show}")
   .pull(ng-click="toggleSidebar()" ng-hide="show")
   #sidebar(ng-show="show")
     .close(ng-click="toggleSidebar()")
