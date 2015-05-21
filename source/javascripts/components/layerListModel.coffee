@@ -25,6 +25,11 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     metadata: {
       name: "Damaged Buildings"
       source: "Worldbank"
+      text: "Using remotely sensed data, international organizations have been interpreting damage to structures building by building. The GFDRR team has collated and standardized the damage levels used in all three datasets by applying some assumptions and merged into a single GIS data layer. Areas covered are limited to areas where cloud free images were available.   
+      
+      During past events (2010 Haiti EQ, 2011 Christchurch EQ), it was understood that this type of damage assessment underestimates the number of destroyed and damaged buildings significantly due to the fact that some types of damage to structures are not visible from above. 
+      
+      The practical usage of this data is still being debated. Without baseline statistics on the number of buildings in the area, it would be difficult to assess the percentage of impacted buildings, which would be a useful starting point for housing assessment. Currently, OpenStreetMap (OSM) volunteers are mapping building footprints using pre-event images, if OSM building footprints are delineated for entire districts, it is possible to estimate the percentage of structures impacted per district with the caveat that it will be an underestimate, judging from past experiences.  "
     }
   }
   povertyLayer = {
@@ -55,6 +60,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     metadata: {
       name: "Poverty Levels"
       source: "Worldbank"
+      text: "The World Bank Poverty Global Practice group have prepared poverty data for Nepal that can be visualized on a map. This layer will be useful for social protection, as well as to prioritize areas for resources in light of the level of damage estimated using the landslide inventory map, and building damage map above. "
     }
   }
   schoolPolygonLayer = {
@@ -181,6 +187,8 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     metadata: {
       name: "Mainstream Media text"
       source: "Worldbank"
+      text: "The World Bank ITS unit has been extracting information on damage being reported in mainstream media since the 25th of April. The information is linked to a place on the map and is available in GIS format. Photographs and video footage are also available. This would be useful for validation of other data sources on damage.
+      "
     }
   }
   valleyLandslidesLayer= {
