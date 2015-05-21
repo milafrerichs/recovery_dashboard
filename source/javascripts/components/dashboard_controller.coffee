@@ -14,7 +14,6 @@ class RecoveryDashboardCtrl
       this.layer.style = $scope.styleHelper[this.styleOptions.styleParam]
     angular.extend($scope, {
       defaults: {
-        scrollWheelZoom: false
         events: {
           layers: [ 'mousemove', 'click' ]
           map: [ 'singleclick', 'pointermove' ]
