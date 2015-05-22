@@ -24,7 +24,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Damaged Buildings"
-      source: "Worldbank"
+      source: ""
       text: "Using remotely sensed data, international organizations have been interpreting damage to structures building by building. The GFDRR team has collated and standardized the damage levels used in all three datasets by applying some assumptions and merged into a single GIS data layer. Areas covered are limited to areas where cloud free images were available.   
       
       During past events (2010 Haiti EQ, 2011 Christchurch EQ), it was understood that this type of damage assessment underestimates the number of destroyed and damaged buildings significantly due to the fact that some types of damage to structures are not visible from above. 
@@ -172,7 +172,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Landslides BGS"
-      source: "Worldbank"
+      source: ""
     }
   }
   mediaLayer = {
@@ -186,7 +186,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Mainstream Media text"
-      source: "Worldbank"
+      source: ""
       text: "The World Bank ITS unit has been extracting information on damage being reported in mainstream media since the 25th of April. The information is linked to a place on the map and is available in GIS format. Photographs and video footage are also available. This would be useful for validation of other data sources on damage.
       "
     }
@@ -202,7 +202,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Valley Landslides"
-      source: "Worldbank"
+      source: ""
     }
   }
   valleyBlockingLayer = {
@@ -216,7 +216,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Valley Blockings"
-      source: "Worldbank"
+      source: ""
     }
   }
   landslideLayer = {
@@ -230,7 +230,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Landslides"
-      source: "Worldbank"
+      source: ""
     }
   }
   damagedBuildingsLayer = {
@@ -244,7 +244,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Damages Buildings"
-      source: "Worldbank"
+      source: ""
     }
   }
   nasaLayer = {
