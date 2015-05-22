@@ -61,11 +61,9 @@ title: Recovery Dashboard
           %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
             %label
         .name(ng-model="visibleLayers" ng-click="toggleDisplayed()") {{layer.metadata.name}}
-        .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
+        .info(ng-model="layer.metadata.show" ng-click="toggleMetadata()") i
         .sub-styles(ng-show="layer.styleOptions")
           .subcheck( ng-model="styleOptions" ng-repeat="styleOptions in layer.styleOptions")
             %input(type="radio" name="layerSubStyle" ng-model="layer.selectedStyle" ng-value="styleOptions.styleParam" ng-change="changeStyle()")
             %p {{styleOptions.styleName}}
-        .metadata(ng-show="layer.metadata.show")
-          .name Name: {{layer.metadata.name}}
-          .source Source: {{layer.metadata.source}}
+  = partial "partials/metadata_info"
