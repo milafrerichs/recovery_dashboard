@@ -1,14 +1,32 @@
 class RecoveryDashboardCtrl
   constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper) ->
     $scope.hideMetadata = () ->
-      this.layer.metadata.show = false
-    $scope.showMetadata = () ->
-      this.layer.metadata.show = true
+      $scope.metadata.show = false
+    $scope.toggleMetadata = () ->
+      if this.combinedLayer
+        this.combinedLayer.metadata.show = !this.combinedLayer.metadata.show
+        $scope.metadata = this.combinedLayer.metadata
+      if this.layer
+        this.layer.metadata.show = !this.layer.metadata.show
+        $scope.metadata = this.layer.metadata
     $scope.toggleVisibility = ->
       this.layer.visible = this.layer.displayed
     $scope.toggleDisplayed = ->
       this.layer.displayed = !this.layer.displayed
       this.layer.visible = this.layer.displayed
+    $scope.resetCombinedLayers = ->
+      displayed = this.combinedLayer.displayed
+      _.each this.combinedLayer.layers, (layer) ->
+        layer.visible = displayed
+    $scope.showCombinedLayers = ->
+      _.each this.combinedLayer.layers, (layer) ->
+        layer.visible = true
+    $scope.toggleCombinedDisplayed = ->
+      this.combinedLayer.displayed = !this.combinedLayer.displayed
+      displayed = this.combinedLayer.displayed
+      _.each this.combinedLayer.layers, (layer) ->
+        layer.visible = displayed
+        layer.displayed = displayed
     $scope.styleHelper = styleHelper
     $scope.changeStyle = () ->
       this.layer.style = $scope.styleHelper[this.styleOptions.styleParam]
@@ -44,14 +62,14 @@ class RecoveryDashboardCtrl
       })
       getFeatureInfo = (event, data) ->
         pixel = map.getEventPixel(data.event.originalEvent)
-        layer = map.forEachLayerAtPixel(pixel,((layer) -> layer), map, (layer) -> layer.get('name') is 'poverty')
+        layer = map.forEachLayerAtPixel(pixel,((layer) -> layer), map, (layer) -> layer.get('name') is 'poverty' or layer.get('name') is 'db-admin')
         if layer && not $scope.overlayLock
           viewResolution = map.getView().getResolution()
           coordinate = data.coord
           url = layer.getSource().getGetFeatureInfoUrl(coordinate, viewResolution, 'EPSG:3857',
                 {'INFO_FORMAT': 'application/json'})
           $http.get(url).success (feature) ->
-            $scope.name = 'poverty'
+            $scope.name = layer.get('name')
             $scope.properties = if feature then feature.features[0].properties else {}
             $scope.sourceType = 'worldbank'
             overlayHidden = true
