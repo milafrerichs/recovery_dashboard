@@ -4,10 +4,17 @@
   RecoveryDashboardCtrl = (function() {
     function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper) {
       $scope.hideMetadata = function() {
-        return this.layer.metadata.show = false;
+        return $scope.metadata.show = false;
       };
-      $scope.showMetadata = function() {
-        return this.layer.metadata.show = true;
+      $scope.toggleMetadata = function() {
+        if (this.combinedLayer) {
+          this.combinedLayer.metadata.show = !this.combinedLayer.metadata.show;
+          $scope.metadata = this.combinedLayer.metadata;
+        }
+        if (this.layer) {
+          this.layer.metadata.show = !this.layer.metadata.show;
+          return $scope.metadata = this.layer.metadata;
+        }
       };
       $scope.toggleVisibility = function() {
         return this.layer.visible = this.layer.displayed;
@@ -15,6 +22,27 @@
       $scope.toggleDisplayed = function() {
         this.layer.displayed = !this.layer.displayed;
         return this.layer.visible = this.layer.displayed;
+      };
+      $scope.resetCombinedLayers = function() {
+        var displayed;
+        displayed = this.combinedLayer.displayed;
+        return _.each(this.combinedLayer.layers, function(layer) {
+          return layer.visible = displayed;
+        });
+      };
+      $scope.showCombinedLayers = function() {
+        return _.each(this.combinedLayer.layers, function(layer) {
+          return layer.visible = true;
+        });
+      };
+      $scope.toggleCombinedDisplayed = function() {
+        var displayed;
+        this.combinedLayer.displayed = !this.combinedLayer.displayed;
+        displayed = this.combinedLayer.displayed;
+        return _.each(this.combinedLayer.layers, function(layer) {
+          layer.visible = displayed;
+          return layer.displayed = displayed;
+        });
       };
       $scope.styleHelper = styleHelper;
       $scope.changeStyle = function() {
@@ -60,7 +88,7 @@
           layer = map.forEachLayerAtPixel(pixel, (function(layer) {
             return layer;
           }), map, function(layer) {
-            return layer.get('name') === 'poverty';
+            return layer.get('name') === 'poverty' || layer.get('name') === 'db-admin';
           });
           if (layer && !$scope.overlayLock) {
             viewResolution = map.getView().getResolution();
@@ -70,7 +98,7 @@
             });
             return $http.get(url).success(function(feature) {
               var overlayHidden;
-              $scope.name = 'poverty';
+              $scope.name = layer.get('name');
               $scope.properties = feature ? feature.features[0].properties : {};
               $scope.sourceType = 'worldbank';
               overlayHidden = true;

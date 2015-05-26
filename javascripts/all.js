@@ -50416,7 +50416,7 @@ var colorbrewer = {YlGn: {
 (function() {
   angular.module('dashboard').service('layerListModel', [
     '$rootScope', 'styleHelper', function($rootScope, styleHelper) {
-      var damagedBuildingsLayer, hotosmLayer, landslideLayer, landslidesBGSLayer, mediaLayer, medicalLayer, medicalPolygonLayer, nasaLayer, povertyLayer, roadsLayer, schoolLayer, schoolPolygonLayer, trainStationsLayer, valleyBlockingLayer, valleyLandslidesLayer;
+      var damagedBuildingsLayer, damaged_buildings_adminLayer, hotosmLayer, landslideLayer, landslidesBGSLayer, mediaLayer, medicalLayer, medicalPolygonLayer, nasaLayer, povertyLayer, roadsLayer, schoolLayer, schoolPolygonLayer, trainStationsLayer, valleyBlockingLayer, valleyLandslidesLayer;
       hotosmLayer = {
         name: 'HOTOSM',
         active: true,
@@ -50426,11 +50426,31 @@ var colorbrewer = {YlGn: {
           url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
         }
       };
+      damaged_buildings_adminLayer = {
+        name: 'db-admin',
+        active: true,
+        displayed: true,
+        index: 2,
+        source: {
+          type: 'ImageWMS',
+          url: 'http://demo.geonode.org/geoserver/wms',
+          params: {
+            layers: "geonode:destroyed_buildings",
+            query_layers: "geonode:destroyed_buildings",
+            styles: "destroyed_buildings"
+          }
+        },
+        metadata: {
+          name: "Damaged Buildings",
+          source: "",
+          text: "Using remotely sensed data, international organizations have been interpreting damage to structures building by building. The GFDRR team has collated and standardized the damage levels used in all three datasets by applying some assumptions and merged into a single GIS data layer. Areas covered are limited to areas where cloud free images were available. During past events (2010 Haiti EQ, 2011 Christchurch EQ), it was understood that this type of damage assessment underestimates the number of destroyed and damaged buildings significantly due to the fact that some types of damage to structures are not visible from above. The practical usage of this data is still being debated. Without baseline statistics on the number of buildings in the area, it would be difficult to assess the percentage of impacted buildings, which would be a useful starting point for housing assessment. Currently, OpenStreetMap (OSM) volunteers are mapping building footprints using pre-event images, if OSM building footprints are delineated for entire districts, it is possible to estimate the percentage of structures impacted per district with the caveat that it will be an underestimate, judging from past experiences.  "
+        }
+      };
       povertyLayer = {
         name: 'poverty',
         active: true,
-        displayed: true,
-        index: 1,
+        displayed: false,
+        visible: false,
         source: {
           type: 'ImageWMS',
           url: 'http://demo.geonode.org/geoserver/wms',
@@ -50451,7 +50471,8 @@ var colorbrewer = {YlGn: {
         ],
         metadata: {
           name: "Poverty Levels",
-          source: "Worldbank"
+          source: "Worldbank",
+          text: "The World Bank Poverty Global Practice group have prepared poverty data for Nepal that can be visualized on a map. This layer will be useful for social protection, as well as to prioritize areas for resources in light of the level of damage estimated using the landslide inventory map, and building damage map above. "
         }
       };
       schoolPolygonLayer = {
@@ -50512,7 +50533,8 @@ var colorbrewer = {YlGn: {
       medicalPolygonLayer = {
         name: 'medicalpolygon',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'GeoJSON',
           url: 'http://nepal.piensa.co/data/medical_polygon.json'
@@ -50526,7 +50548,8 @@ var colorbrewer = {YlGn: {
       medicalLayer = {
         name: 'medical',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'GeoJSON',
           url: 'http://nepal.piensa.co/data/medical_point.json'
@@ -50555,7 +50578,8 @@ var colorbrewer = {YlGn: {
       landslidesBGSLayer = {
         name: 'landslides-bgs',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50563,13 +50587,14 @@ var colorbrewer = {YlGn: {
         },
         metadata: {
           name: "Landslides BGS",
-          source: "Worldbank"
+          source: ""
         }
       };
       mediaLayer = {
         name: 'media',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50577,13 +50602,15 @@ var colorbrewer = {YlGn: {
         },
         metadata: {
           name: "Mainstream Media text",
-          source: "Worldbank"
+          source: "",
+          text: "The World Bank ITS unit has been extracting information on damage being reported in mainstream media since the 25th of April. The information is linked to a place on the map and is available in GIS format. Photographs and video footage are also available. This would be useful for validation of other data sources on damage."
         }
       };
       valleyLandslidesLayer = {
         name: 'valley-landslides',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50591,13 +50618,14 @@ var colorbrewer = {YlGn: {
         },
         metadata: {
           name: "Valley Landslides",
-          source: "Worldbank"
+          source: ""
         }
       };
       valleyBlockingLayer = {
         name: 'valley-blocking',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50605,13 +50633,14 @@ var colorbrewer = {YlGn: {
         },
         metadata: {
           name: "Valley Blockings",
-          source: "Worldbank"
+          source: ""
         }
       };
       landslideLayer = {
         name: 'landslides',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50619,13 +50648,14 @@ var colorbrewer = {YlGn: {
         },
         metadata: {
           name: "Landslides",
-          source: "Worldbank"
+          source: ""
         }
       };
       damagedBuildingsLayer = {
         name: 'damagedBuildings',
         active: false,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50633,13 +50663,14 @@ var colorbrewer = {YlGn: {
         },
         metadata: {
           name: "Damages Buildings",
-          source: "Worldbank"
+          source: ""
         }
       };
       nasaLayer = {
         name: 'nasa',
         active: true,
-        displayed: true,
+        displayed: false,
+        visible: false,
         source: {
           type: 'TileVector',
           format: new ol.format.GeoJSON(),
@@ -50660,7 +50691,7 @@ var colorbrewer = {YlGn: {
         }, {
           name: "Damages",
           iconClass: 'flag',
-          layers: [landslideLayer, landslidesBGSLayer, valleyLandslidesLayer, valleyBlockingLayer, damagedBuildingsLayer, nasaLayer]
+          layers: [landslideLayer, landslidesBGSLayer, valleyLandslidesLayer, valleyBlockingLayer, damagedBuildingsLayer, damaged_buildings_adminLayer, nasaLayer]
         }, {
           name: "Media",
           iconClass: 'newspaper-o',
@@ -50668,7 +50699,28 @@ var colorbrewer = {YlGn: {
         }, {
           name: "Infrastructure",
           iconClass: 'road',
-          layers: [roadsLayer, trainStationsLayer, schoolLayer, schoolPolygonLayer, medicalLayer, medicalPolygonLayer]
+          layers: [roadsLayer, trainStationsLayer],
+          combinedLayers: [
+            {
+              name: 'Schools',
+              visible: false,
+              displayed: false,
+              layers: [schoolLayer, schoolPolygonLayer],
+              metadata: {
+                name: "Schools",
+                source: "OSM"
+              }
+            }, {
+              name: 'Medical',
+              visible: true,
+              displayed: true,
+              layers: [medicalLayer, medicalPolygonLayer],
+              metadata: {
+                name: "Medical facilities",
+                source: "OSM"
+              }
+            }
+          ]
         }
       ];
       this.baseLayer = hotosmLayer;
@@ -50680,11 +50732,21 @@ var colorbrewer = {YlGn: {
 (function() {
   angular.module('dashboard').service('layerListService', [
     '$rootScope', 'layerListModel', function($rootScope, layerListModel) {
-      this.list = _.unique(_.flatten([
-        _.collect(layerListModel.layerGroups, function(group) {
+      var allLayers, collectCombinedLayers, collectLayers;
+      collectCombinedLayers = function(groups) {
+        return _.collect(groups, function(group) {
+          return collectLayers(group.combinedLayers);
+        });
+      };
+      collectLayers = function(groups) {
+        return _.collect(groups, function(group) {
           return group.layers;
-        }).reverse(), layerListModel.baseLayer
-      ])).reverse();
+        });
+      };
+      allLayers = function(groups) {
+        return _.unique(_.flatten([collectLayers(groups), collectCombinedLayers(groups), layerListModel.baseLayer])).reverse();
+      };
+      this.list = allLayers(layerListModel.layerGroups);
       this.layerGroups = layerListModel.layerGroups;
       return this;
     }
@@ -50697,10 +50759,17 @@ var colorbrewer = {YlGn: {
   RecoveryDashboardCtrl = (function() {
     function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper) {
       $scope.hideMetadata = function() {
-        return this.layer.metadata.show = false;
+        return $scope.metadata.show = false;
       };
-      $scope.showMetadata = function() {
-        return this.layer.metadata.show = true;
+      $scope.toggleMetadata = function() {
+        if (this.combinedLayer) {
+          this.combinedLayer.metadata.show = !this.combinedLayer.metadata.show;
+          $scope.metadata = this.combinedLayer.metadata;
+        }
+        if (this.layer) {
+          this.layer.metadata.show = !this.layer.metadata.show;
+          return $scope.metadata = this.layer.metadata;
+        }
       };
       $scope.toggleVisibility = function() {
         return this.layer.visible = this.layer.displayed;
@@ -50708,6 +50777,27 @@ var colorbrewer = {YlGn: {
       $scope.toggleDisplayed = function() {
         this.layer.displayed = !this.layer.displayed;
         return this.layer.visible = this.layer.displayed;
+      };
+      $scope.resetCombinedLayers = function() {
+        var displayed;
+        displayed = this.combinedLayer.displayed;
+        return _.each(this.combinedLayer.layers, function(layer) {
+          return layer.visible = displayed;
+        });
+      };
+      $scope.showCombinedLayers = function() {
+        return _.each(this.combinedLayer.layers, function(layer) {
+          return layer.visible = true;
+        });
+      };
+      $scope.toggleCombinedDisplayed = function() {
+        var displayed;
+        this.combinedLayer.displayed = !this.combinedLayer.displayed;
+        displayed = this.combinedLayer.displayed;
+        return _.each(this.combinedLayer.layers, function(layer) {
+          layer.visible = displayed;
+          return layer.displayed = displayed;
+        });
       };
       $scope.styleHelper = styleHelper;
       $scope.changeStyle = function() {
@@ -50753,7 +50843,7 @@ var colorbrewer = {YlGn: {
           layer = map.forEachLayerAtPixel(pixel, (function(layer) {
             return layer;
           }), map, function(layer) {
-            return layer.get('name') === 'poverty';
+            return layer.get('name') === 'poverty' || layer.get('name') === 'db-admin';
           });
           if (layer && !$scope.overlayLock) {
             viewResolution = map.getView().getResolution();
@@ -50763,7 +50853,7 @@ var colorbrewer = {YlGn: {
             });
             return $http.get(url).success(function(feature) {
               var overlayHidden;
-              $scope.name = 'poverty';
+              $scope.name = layer.get('name');
               $scope.properties = feature ? feature.features[0].properties : {};
               $scope.sourceType = 'worldbank';
               overlayHidden = true;

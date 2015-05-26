@@ -872,29 +872,21 @@ input[type="submit"] {
       line-height: 20px;
       text-align: center; }
     /* line 33, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
-    #recovery-dashboard #layers .layer .metadata {
-      position: absolute;
-      right: -150px;
-      top: 0px;
-      width: 150px;
-      background: rgba(200, 200, 200, 0.7);
-      padding: 10px; }
-    /* line 40, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #layers .layer .sub-styles {
       clear: left;
       float: left;
       margin: 10px 0 0 15px; }
-      /* line 44, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+      /* line 37, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
       #recovery-dashboard #layers .layer .sub-styles .subcheck {
         clear: left;
         float: left; }
-        /* line 47, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+        /* line 40, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
         #recovery-dashboard #layers .layer .sub-styles .subcheck input {
           float: left; }
-        /* line 49, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+        /* line 42, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
         #recovery-dashboard #layers .layer .sub-styles .subcheck p {
           float: left; }
-/* line 52, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+/* line 45, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
 #recovery-dashboard #groups .group-header {
   border-bottom: 1px solid #ccc;
   background: #8CA3AB; }
@@ -903,26 +895,26 @@ input[type="submit"] {
     content: "";
     display: table;
     clear: both; }
-  /* line 56, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+  /* line 49, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
   #recovery-dashboard #groups .group-header .group {
     float: left;
     padding: 5px 10px;
     border-right: 1px solid #ccc; }
-    /* line 60, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    /* line 53, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #groups .group-header .group .tooltip {
       position: absolute;
       display: none; }
-    /* line 63, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    /* line 56, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #groups .group-header .group.active {
       background: #7585A9;
       color: #fff; }
-    /* line 66, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+    /* line 59, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
     #recovery-dashboard #groups .group-header .group:hover {
       cursor: pointer; }
-/* line 68, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+/* line 61, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
 #recovery-dashboard #groups .groups {
   padding: 10px; }
-  /* line 70, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
+  /* line 63, /Development/projects/recovery_dashboard/source/stylesheets/components/_layers.sass */
   #recovery-dashboard #groups .groups.active {
     background: #7585A9;
     color: #fff; }
@@ -1077,15 +1069,49 @@ input[type="submit"] {
         display: block; }
 
 /* line 1, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important; }
+
+/* line 4, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
 #recovery-dashboard {
   position: absolute;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0; }
-  /* line 7, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+  /* line 10, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
   #recovery-dashboard .dashboard-map {
     height: 100%; }
+
+/* line 12, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+#metadata-info {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  width: 450px;
+  background: rgba(200, 200, 200, 0.9); }
+  /* line 18, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+  #metadata-info .metadata {
+    postion: relative;
+    border: 1px solid #dcdcdc; }
+    /* line 21, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+    #metadata-info .metadata .close {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      border: 1px solid #fff;
+      cursor: pointer;
+      padding: 0 5px; }
+    /* line 28, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+    #metadata-info .metadata h2 {
+      background: #ddd;
+      border-bottom: 1px solid #dcdcdc;
+      padding: 10px; }
+    /* line 32, /Development/projects/recovery_dashboard/source/stylesheets/_main.sass */
+    #metadata-info .metadata .content {
+      padding: 10px;
+      max-height: 400px;
+      overflow: auto; }
 
 /* line 18, /Development/projects/recovery_dashboard/source/stylesheets/all.sass */
 body {

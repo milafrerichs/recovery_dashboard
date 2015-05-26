@@ -1,5 +1,5 @@
 (function() {
-  dashboard.factory('damageAggregationService', [
+  angular.module('dashboard').factory('damageAggregationService', [
     '$q', 'geoJSONService', function($q, geoJSONService) {
       var getLayer;
       getLayer = function() {
