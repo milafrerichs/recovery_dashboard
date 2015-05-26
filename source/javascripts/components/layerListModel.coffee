@@ -311,7 +311,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
             schoolPolygonLayer
           ]
           metadata: {
-            name: "Medical facilities Polygons"
+            name: "Schools"
             source: "OSM"
           }
         }
@@ -324,7 +324,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
             medicalPolygonLayer
           ]
           metadata: {
-            name: "Medical facilities Polygons"
+            name: "Medical facilities"
             source: "OSM"
           }
         }
