@@ -30,6 +30,14 @@ class RecoveryDashboardCtrl
     $scope.styleHelper = styleHelper
     $scope.changeStyle = () ->
       this.layer.style = $scope.styleHelper[this.styleOptions.styleParam]
+    $scope.showGroup = ->
+      activateGroup = this.group
+      _.each $scope.layerGroups, (group) ->
+        if group is activateGroup
+          group.active = true
+        else
+          group.active = false
+
     angular.extend($scope, {
       defaults: {
         scrollWheelZoom: false
