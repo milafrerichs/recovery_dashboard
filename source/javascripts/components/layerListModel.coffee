@@ -270,11 +270,28 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     {
       name: "Landslides"
-      layers: [
-        landslideLayer
-        landslidesBGSLayer
-        valleyLandslidesLayer
-        valleyBlockingLayer
+      layers: []
+      combinedLayers: [
+        {
+          name: 'Landslides'
+          visible: false
+          displayed: false
+          layers: [
+            landslideLayer
+            landslidesBGSLayer
+            valleyLandslidesLayer
+            valleyBlockingLayer
+          ]
+          metadata: {
+            name: "Landslides"
+            source: ""
+            text: "Location of a large set of landslides detected using satellite images are available in GIS format files. The data was compiled by a consortium international organisations.  
+             
+             This dataset is useful when overlaid with the road data as well as watercourses, to identify/infer potential roadblocks and the potential for earth dams to form as a result of water courses being blocked. This inventory can also be used to prioritize areas where mid- to longer term landslide risks should be assessed, given the approaching monsoon season. When overlaid with settlement locations, it may be used to infer “at risk” settlements. In all cases, geologists should be consulted. (also, see “settlement data” section below) It can also be overlaid to identify at risk health clinics and schools in the mountainous areas.  
+             
+             The inventory data was compiled on a best effort basis by geologists in each of the organizations involved. G iven cloud cover and limitations in the availability of satellite data etc. there may be missing landslides from this dataset. Link to printable map: http://goo.gl/pa1o3F  "
+          }
+        }
       ]
     }
     {
