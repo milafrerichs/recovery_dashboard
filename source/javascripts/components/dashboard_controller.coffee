@@ -1,9 +1,10 @@
 class RecoveryDashboardCtrl
   constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper) ->
     $scope.hideMetadata = () ->
-      this.layer.metadata.show = false
-    $scope.showMetadata = () ->
-      this.layer.metadata.show = true
+      $scope.metadata.show = false
+    $scope.toggleMetadata = () ->
+      this.layer.metadata.show = !this.layer.metadata.show
+      $scope.metadata = this.layer.metadata
     $scope.toggleVisibility = ->
       this.layer.visible = this.layer.displayed
     $scope.toggleDisplayed = ->
