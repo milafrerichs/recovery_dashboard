@@ -1,0 +1,8 @@
+#metadata-info(ng-model="metadata" ng-show="metadata.show")
+  .metadata
+    .close(ng-click="hideMetadata()")
+      x
+    %h2.name {{metadata.name}}
+    .content
+      %p.source Source: {{metadata.source}}
+      %p {{metadata.text}}

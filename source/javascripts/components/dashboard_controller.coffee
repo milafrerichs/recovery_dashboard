@@ -1,14 +1,32 @@
 class RecoveryDashboardCtrl
   constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper) ->
     $scope.hideMetadata = () ->
-      this.layer.metadata.show = false
-    $scope.showMetadata = () ->
-      this.layer.metadata.show = true
+      $scope.metadata.show = false
+    $scope.toggleMetadata = () ->
+      if this.combinedLayer
+        this.combinedLayer.metadata.show = !this.combinedLayer.metadata.show
+        $scope.metadata = this.combinedLayer.metadata
+      if this.layer
+        this.layer.metadata.show = !this.layer.metadata.show
+        $scope.metadata = this.layer.metadata
     $scope.toggleVisibility = ->
       this.layer.visible = this.layer.displayed
     $scope.toggleDisplayed = ->
       this.layer.displayed = !this.layer.displayed
       this.layer.visible = this.layer.displayed
+    $scope.resetCombinedLayers = ->
+      displayed = this.combinedLayer.displayed
+      _.each this.combinedLayer.layers, (layer) ->
+        layer.visible = displayed
+    $scope.showCombinedLayers = ->
+      _.each this.combinedLayer.layers, (layer) ->
+        layer.visible = true
+    $scope.toggleCombinedDisplayed = ->
+      this.combinedLayer.displayed = !this.combinedLayer.displayed
+      displayed = this.combinedLayer.displayed
+      _.each this.combinedLayer.layers, (layer) ->
+        layer.visible = displayed
+        layer.displayed = displayed
     $scope.styleHelper = styleHelper
     $scope.changeStyle = () ->
       this.layer.style = $scope.styleHelper[this.styleOptions.styleParam]
