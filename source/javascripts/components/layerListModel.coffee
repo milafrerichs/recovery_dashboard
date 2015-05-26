@@ -8,17 +8,44 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       url: 'http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
     }
   }
+  damaged_buildings_adminLayer = {
+    name: 'db-admin',
+    active: true,
+    displayed: true,
+    index: 2
+    source: {
+      type: 'ImageWMS',
+      url: 'http://demo.geonode.org/geoserver/wms'
+      params: {
+        layers: "geonode:destroyed_buildings"
+        query_layers: "geonode:destroyed_buildings"
+        styles: "destroyed_buildings"
+      }
+    }
+    metadata: {
+      name: "Damaged Buildings"
+      source: ""
+      text: "Using remotely sensed data, international organizations have been interpreting damage to structures building by building. The GFDRR team has collated and standardized the damage levels used in all three datasets by applying some assumptions and merged into a single GIS data layer. Areas covered are limited to areas where cloud free images were available.   
+      
+      During past events (2010 Haiti EQ, 2011 Christchurch EQ), it was understood that this type of damage assessment underestimates the number of destroyed and damaged buildings significantly due to the fact that some types of damage to structures are not visible from above. 
+      
+      The practical usage of this data is still being debated. Without baseline statistics on the number of buildings in the area, it would be difficult to assess the percentage of impacted buildings, which would be a useful starting point for housing assessment. Currently, OpenStreetMap (OSM) volunteers are mapping building footprints using pre-event images, if OSM building footprints are delineated for entire districts, it is possible to estimate the percentage of structures impacted per district with the caveat that it will be an underestimate, judging from past experiences.  "
+    }
+  }
   povertyLayer = {
     name: 'poverty',
-    active: false,
-    displayed: true,
+    active: true,
+    displayed: false,
     index: 1
     source: {
-      type: 'TileVector',
-      format: new ol.format.GeoJSON()
-      url: 'http://104.236.203.232/poverty/{z}/{x}/{y}.geojson'
+      type: 'ImageWMS',
+      url: 'http://demo.geonode.org/geoserver/wms'
+      params: {
+        layers: "geonode:archiv"
+        query_layers: "geonode:archiv"
+      }
     }
-    style: styleHelper.povertyAvgStyle
+    #style: styleHelper.povertyAvgStyle
     selectedStyle: "povertyAvgStyle"
     styleOptions: [
       {
@@ -33,6 +60,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     metadata: {
       name: "Poverty Levels"
       source: "Worldbank"
+      text: "The World Bank Poverty Global Practice group have prepared poverty data for Nepal that can be visualized on a map. This layer will be useful for social protection, as well as to prioritize areas for resources in light of the level of damage estimated using the landslide inventory map, and building damage map above. "
     }
   }
   schoolPolygonLayer = {
@@ -48,15 +76,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       name: "School Polygons"
       source: "OSM"
     }
-    style: {
-      fill: {
-        color: "blue"
-      }
-      stroke: {
-        width: 4
-        color: "blue"
-      }
-    }
+    style: styleHelper.schoolPolygonStyle
   }
   trainStationsLayer = {
     name: 'train_stations',
@@ -91,6 +111,12 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       name: "Main roads"
       source: "OSM"
     }
+    style: {
+      stroke: {
+        color: '#E0D6B2'
+        width: 2
+      }
+    }
   }
   medicalPolygonLayer = {
     name: 'medicalpolygon',
@@ -104,15 +130,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       name: "Medical facilities Polygons"
       source: "OSM"
     }
-    style: {
-      fill: {
-        color: "red"
-      }
-      stroke: {
-        width: 4
-        color: "red"
-      }
-      }
+    style: styleHelper.medicalPolygonStyle
   }
   medicalLayer = {
     name: 'medical',
@@ -122,13 +140,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       type: 'GeoJSON',
       url: 'http://nepal.piensa.co/data/medical_point.json'
     }
-    style: {
-      image: {
-        icon: {
-          src: 'images/icons/hospital-12.png'
-        }
-      }
-    }
+    style: styleHelper.medicalStyle
     metadata: {
       name: "Medical facilities"
       source: "OSM"
@@ -147,13 +159,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       name: "Schools"
       source: "OSM"
     }
-    style: {
-      image: {
-        icon: {
-          src: 'images/icons/school-12.png'
-        }
-      }
-    }
+    style: styleHelper.schoolStyle
   }
   landslidesBGSLayer = {
     name: 'landslides-bgs',
@@ -166,7 +172,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Landslides BGS"
-      source: "Worldbank"
+      source: ""
     }
   }
   mediaLayer = {
@@ -180,7 +186,9 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Mainstream Media text"
-      source: "Worldbank"
+      source: ""
+      text: "The World Bank ITS unit has been extracting information on damage being reported in mainstream media since the 25th of April. The information is linked to a place on the map and is available in GIS format. Photographs and video footage are also available. This would be useful for validation of other data sources on damage.
+      "
     }
   }
   valleyLandslidesLayer= {
@@ -194,7 +202,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Valley Landslides"
-      source: "Worldbank"
+      source: ""
     }
   }
   valleyBlockingLayer = {
@@ -208,7 +216,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Valley Blockings"
-      source: "Worldbank"
+      source: ""
     }
   }
   landslideLayer = {
@@ -222,12 +230,12 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Landslides"
-      source: "Worldbank"
+      source: ""
     }
   }
   damagedBuildingsLayer = {
     name: 'damagedBuildings',
-    active: true,
+    active: false,
     displayed: true,
     source: {
       type: 'TileVector',
@@ -236,7 +244,21 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     }
     metadata: {
       name: "Damages Buildings"
-      source: "Worldbank"
+      source: ""
+    }
+  }
+  nasaLayer = {
+    name: 'nasa',
+    active: true,
+    displayed: true,
+    source: {
+      type: 'TileVector',
+      format: new ol.format.GeoJSON()
+      url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
+    }
+    metadata: {
+      name: "Damages from NASA"
+      source: "NASA"
     }
   }
   this.layerGroups = [
@@ -258,7 +280,8 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     {
       name: "Damages"
       layers: [
-        damagedBuildingsLayer
+        damaged_buildings_adminLayer
+        nasaLayer
       ]
     }
     {

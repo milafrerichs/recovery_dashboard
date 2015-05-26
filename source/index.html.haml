@@ -6,12 +6,23 @@ title: Recovery Dashboard
   %openlayers(class="dashboard-map" custom-layers="true" ol-defaults="defaults" ol-center="nepal")
     %ol-layer(ol-layer-properties="layer" ng-repeat="layer in layers|filter:{active:true}")
 
-  #popup
+  #popup.ng-cloak
     .poverty(ng-show="name=='poverty'")
       %h4 {{properties.OBJECTID}}
       .content
         %p Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %
         %p People: {{properties.nIndividua}}
+    .nasa(ng-show="name=='nasa'")
+      %h4 {{properties.Name}}
+      .content
+        %p
+    .buildings(ng-show="name=='db-admin'")
+      %h4 {{properties.OBJECTID}}
+      .content
+        %p Overall Damaged Buildings: {{properties.BUILDING_C}}
+        %p Destroyed Buildings: {{properties.DESTROYED_}}
+        %p Moderate Damaged Buildings: {{properties.MODERATE_D}}
+        %p Minor Damaged Buildings: {{properties.MINOR_DAMA}}
     .media(ng-show="name=='media'")
       %h4 {{properties.District}}
       .content
@@ -19,11 +30,30 @@ title: Recovery Dashboard
         %p Injured: {{properties.Injured}}
         %p Houses Affected: {{properties.Houses_aff}}
         %p Killed: {{properties.Killed}}
+        %p Needs: {{properties.Needs}}
+    .valley-landslides(ng-show="name=='valley-landslides'")
+      %h4 {{properties.Name}}
+      .content
+        %p Date: {{properties.date}}
+        %p Size: {{properties.Size}}
+        %p Sensor: {{properties.Sensor}}
+        %p Location: {{properties.Location}}
+        %p Fail Type: {{properties.FailType}}
+    .landslides-bgs(ng-show="name=='landslides-bgs'")
+      %h4 {{properties.Name}}
+      .content
+        %p Date: {{properties.Date}}
+        %p Size: {{properties.Size}}
+        %p Source: {{properties.Source}}
+    .landslides(ng-show="name=='landslides'")
+      %h4 {{properties.org}}
+      .content
+        %p Area: {{properties.Shape_Area}}
     .osm(ng-show="sourceType=='OSM'")
       %h4 {{properties.NAME}}
       .content
         %p OSM_ID: {{properties.OSM_ID}}
-  #layers
+  #layers.ng-cloak
     .groups(ng-repeat="group in layerGroups")
       %h4 {{group.name}}
       .layer(ng-repeat="layer in group.layers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-model="layer")
@@ -31,20 +61,15 @@ title: Recovery Dashboard
           %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
             %label
         .name(ng-model="visibleLayers" ng-click="toggleDisplayed()") {{layer.metadata.name}}
-        .info(ng-model="layer.metadata.show" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()") i
+        .info(ng-model="layer.metadata.show" ng-click="toggleMetadata()") i
         .sub-styles(ng-show="layer.styleOptions")
           .subcheck( ng-model="styleOptions" ng-repeat="styleOptions in layer.styleOptions")
             %input(type="radio" name="layerSubStyle" ng-model="layer.selectedStyle" ng-value="styleOptions.styleParam" ng-change="changeStyle()")
             %p {{styleOptions.styleName}}
-        .metadata(ng-show="layer.metadata.show")
-          .name Name: {{layer.metadata.name}}
-          .source Source: {{layer.metadata.source}}
       .layer(ng-repeat="combinedLayer in group.combinedLayers" ng-mouseover="showCombinedLayers()" ng-mouseout="resetCombinedLayers()" ng-model="combinedLayer")
         .layer-check(ng-click="toggleCombinedDisplayed()")
           %input(type="checkbox" ng-model="combinedLayer.displayed" ng-change="toggleCombinedVisibility()")
             %label
         .name(ng-model="visibleLayers" ng-click="toggleCombinedDisplayed()") {{combinedLayer.name}}
-        .info(ng-model="combinedLayer.metadata" ng-mouseover="showMetadata()" ng-mouseout="hideMetadata()" ng-value="combinedLayer.metadata") i
-        .metadata(ng-show="combinedLayer.metadata.show")
-          .name Name: {{combinedLayer.metadata.name}}
-          .source Source: {{combinedLayer.metadata.source}}
+        .info(ng-model="combinedLayer.metadata.show" ng-click="toggleMetadata()") i
+  = partial "partials/metadata_info"

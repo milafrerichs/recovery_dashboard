@@ -1,15 +1,14 @@
 class RecoveryDashboardCtrl
   constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper) ->
     $scope.hideMetadata = () ->
+      $scope.metadata.show = false
+    $scope.toggleMetadata = () ->
       if this.combinedLayer
-        this.combinedLayer.metadata.show = false
+        this.combinedLayer.metadata.show = !this.combinedLayer.metadata.show
+        $scope.metadata = this.combinedLayer.metadata
       if this.layer
-        this.layer.metadata.show = false
-    $scope.showMetadata = () ->
-      if this.combinedLayer
-        this.combinedLayer.metadata.show = true
-      if this.layer
-        this.layer.metadata.show = true
+        this.layer.metadata.show = !this.layer.metadata.show
+        $scope.metadata = this.layer.metadata
     $scope.toggleVisibility = ->
       this.layer.visible = this.layer.displayed
     $scope.toggleDisplayed = ->
@@ -36,6 +35,7 @@ class RecoveryDashboardCtrl
         scrollWheelZoom: false
         events: {
           layers: [ 'mousemove', 'click' ]
+          map: [ 'singleclick', 'pointermove' ]
         }
       }
       nepal: {
@@ -52,6 +52,28 @@ class RecoveryDashboardCtrl
                       offset: [3, -25],
                       position: [0, 0]
       })
+      getFeatureInfo = (event, data) ->
+        pixel = map.getEventPixel(data.event.originalEvent)
+        layer = map.forEachLayerAtPixel(pixel,((layer) -> layer), map, (layer) -> layer.get('name') is 'poverty' or layer.get('name') is 'db-admin')
+        if layer && not $scope.overlayLock
+          viewResolution = map.getView().getResolution()
+          coordinate = data.coord
+          url = layer.getSource().getGetFeatureInfoUrl(coordinate, viewResolution, 'EPSG:3857',
+                {'INFO_FORMAT': 'application/json'})
+          $http.get(url).success (feature) ->
+            $scope.name = layer.get('name')
+            $scope.properties = if feature then feature.features[0].properties else {}
+            $scope.sourceType = 'worldbank'
+            overlayHidden = true
+            if feature.features.length < 1
+              map.removeOverlay(overlay)
+              overlayHidden = true
+            else
+              if overlayHidden
+                map.addOverlay(overlay)
+                overlayHidden = false
+                $scope.overlayLock = true
+            overlay.setPosition(coordinate)
       showPopup = (event, feature, olEvent) ->
         pixel = map.getEventPixel(olEvent.originalEvent)
         layer = map.forEachLayerAtPixel(pixel, (layer) -> layer)
@@ -69,10 +91,15 @@ class RecoveryDashboardCtrl
           if overlayHidden
             map.addOverlay(overlay)
             overlayHidden = false
+            $scope.overlayLock = true
         overlay.setPosition(map.getEventCoordinate(olEvent))
+      pointerMove = (event, data) ->
+        $scope.overlayLock = false
 
       $scope.$on('openlayers.layers.medical.click',showPopup)
-      $scope.$on('openlayers.layers.roads.click',showPopup)
+      $scope.$on('openlayers.layers.medical.mousemove',pointerMove)
+      $scope.$on('openlayers.map.singleclick',getFeatureInfo)
+      $scope.$on('openlayers.map.pointermove',pointerMove)
     )
     $scope.layerGroups = layerListService.layerGroups
     $scope.layerList = layerListService.list
