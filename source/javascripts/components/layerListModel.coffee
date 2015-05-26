@@ -300,10 +300,34 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     {
       name: "Public Facilities"
       layers: [
-        schoolLayer
-        schoolPolygonLayer
-        medicalLayer
-        medicalPolygonLayer
+      ]
+      combinedLayers: [
+        {
+          name: 'Schools'
+          visible: false
+          displayed: false
+          layers: [
+            schoolLayer
+            schoolPolygonLayer
+          ]
+          metadata: {
+            name: "Schools"
+            source: "OSM"
+          }
+        }
+        {
+          name: 'Medical'
+          visible: true
+          displayed: true
+          layers: [
+            medicalLayer
+            medicalPolygonLayer
+          ]
+          metadata: {
+            name: "Medical facilities"
+            source: "OSM"
+          }
+        }
       ]
     }
   ]

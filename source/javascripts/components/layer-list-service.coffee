@@ -1,5 +1,14 @@
 angular.module('dashboard').service('layerListService', ['$rootScope', 'layerListModel', ($rootScope, layerListModel) ->
-    this.list = _.unique(_.flatten([_.collect(layerListModel.layerGroups, (group) -> group.layers).reverse(),layerListModel.baseLayer])).reverse()
-    this.layerGroups = layerListModel.layerGroups
-    return this
+  collectCombinedLayers = (groups) ->
+    _.collect(groups, (group) -> collectLayers(group.combinedLayers))
+
+  collectLayers = (groups) ->
+    _.collect(groups, (group) -> group.layers)
+
+  allLayers = (groups)->
+    _.unique(_.flatten([collectLayers(groups),collectCombinedLayers(groups), layerListModel.baseLayer])).reverse()
+
+  this.list = allLayers(layerListModel.layerGroups)
+  this.layerGroups = layerListModel.layerGroups
+  return this
 ])
