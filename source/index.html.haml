@@ -53,23 +53,5 @@ title: Recovery Dashboard
       %h4 {{properties.NAME}}
       .content
         %p OSM_ID: {{properties.OSM_ID}}
-  #layers.ng-cloak
-    .groups(ng-repeat="group in layerGroups")
-      %h4 {{group.name}}
-      .layer(ng-repeat="layer in group.layers" ng-mouseover="layer.visible=true;" ng-mouseout="toggleVisibility()" ng-model="layer")
-        .layer-check(ng-click="toggleDisplayed()")
-          %input(type="checkbox" ng-model="layer.displayed" ng-change="toggleVisibility()")
-            %label
-        .name(ng-model="visibleLayers" ng-click="toggleDisplayed()") {{layer.metadata.name}}
-        .info(ng-model="layer.metadata.show" ng-click="toggleMetadata()") i
-        .sub-styles(ng-show="layer.styleOptions")
-          .subcheck( ng-model="styleOptions" ng-repeat="styleOptions in layer.styleOptions")
-            %input(type="radio" name="layerSubStyle" ng-model="layer.selectedStyle" ng-value="styleOptions.styleParam" ng-change="changeStyle()")
-            %p {{styleOptions.styleName}}
-      .layer(ng-repeat="combinedLayer in group.combinedLayers" ng-mouseover="showCombinedLayers()" ng-mouseout="resetCombinedLayers()" ng-model="combinedLayer")
-        .layer-check(ng-click="toggleCombinedDisplayed()")
-          %input(type="checkbox" ng-model="combinedLayer.displayed" ng-change="toggleCombinedVisibility()")
-            %label
-        .name(ng-model="visibleLayers" ng-click="toggleCombinedDisplayed()") {{combinedLayer.name}}
-        .info(ng-model="combinedLayer.metadata.show" ng-click="toggleMetadata()") i
+  = partial "partials/layers"
   = partial "partials/metadata_info"
