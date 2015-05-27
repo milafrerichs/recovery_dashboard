@@ -3,6 +3,7 @@
 
   RecoveryDashboardCtrl = (function() {
     function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper) {
+      $scope.minify = true;
       $scope.hideMetadata = function() {
         return $scope.metadata.show = false;
       };
