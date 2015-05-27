@@ -2,12 +2,12 @@
   #layers
     position: absolute
     top: 80px
-    left: 10px
-    @include span-columns(2)
-    background: rgba(233,233,233,0.8)
-    border: 1px solid #cdcdcd
+    left: 0px
+    width: 300px
+    height: 100%
+    &.minify
+      width: 60px
     h4
-      background: #cecece
       padding: 10px
       font-size: 14px
     .layer
@@ -41,13 +41,30 @@
             float: left
           p
             float: left
-  #groups
+  .wrapper
+    position: absolute
+    left: 0
+    top: 0
+    height: 100%
+    transform: translate3d(0, 0, 0)
+    transition: transform 0.4s ease
+    margin-left: 50px
+    z-index: 3
+
+  .header
+    width: 50px
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    z-index: 5
+    background: #8CA3AB
     .group-header
       +clearfix
-      border-bottom: 1px solid #ccc
-      background: #8CA3AB
+      width: 50px
+      height: 300px
+      font-size: 1.3em
       .group
-        float: left
         padding: 5px 10px
         border-right: 1px solid #ccc
         .tooltip
@@ -58,9 +75,27 @@
           color: #fff
         &:hover
           cursor: pointer
+  #groups
+    position: absolute
+    left: 0
+    top: 0
+    width: 250px
+    height: 100%
+    background: #fff
+    color: #000
     .groups
+      float: left
+      width: 250px
       padding: 10px
-      &.active
-        background: #7585A9
-        color: #fff
+  .active-layers
+    width: 220px
+    position: absolute
+    left: 250px
+    top: 0
+    margin-left: 5px
+    background: #fefefe
+    border: 1px solid #dedede
+    padding: 10px
 
+  .minify .wrapper
+    transform: translate3d(-250px, 0, 0)
