@@ -16,7 +16,6 @@
   "dependencies": {
     "underscore":"",
     "jquery":"",
-    "angular-leaflet-directive":"",
     "angular-openlayers-directive":"",
     "d3":"",
     "colorbrewer":""
