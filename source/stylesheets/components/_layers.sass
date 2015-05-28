@@ -41,4 +41,26 @@
             float: left
           p
             float: left
+  #groups
+    .group-header
+      +clearfix
+      border-bottom: 1px solid #ccc
+      background: #8CA3AB
+      .group
+        float: left
+        padding: 5px 10px
+        border-right: 1px solid #ccc
+        .tooltip
+          position: absolute
+          display: none
+        &.active
+          background: #7585A9
+          color: #fff
+        &:hover
+          cursor: pointer
+    .groups
+      padding: 10px
+      &.active
+        background: #7585A9
+        color: #fff
 
