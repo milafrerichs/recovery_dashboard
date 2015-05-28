@@ -15,11 +15,10 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     index: 2
     source: {
       type: 'ImageWMS',
-      url: 'http://demo.geonode.org/geoserver/wms'
+      url: 'http://45.55.174.20/geoserver/wms'
       params: {
-        layers: "geonode:destroyed_buildings"
-        query_layers: "geonode:destroyed_buildings"
-        styles: "destroyed_buildings"
+        layers: "hazard:destroyed_buildings_admin_3"
+        query_layers: "hazard:destroyed_buildings_admin_3"
       }
     }
     metadata: {
