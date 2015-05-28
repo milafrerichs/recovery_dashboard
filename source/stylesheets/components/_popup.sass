@@ -30,9 +30,16 @@
       line-height: $base-line-height
       margin: 0
       font-size: 1.2em
-      padding: 0.5em 1em
+      padding: 0.5em 1.5em 0.5em 1em
       background: $tooltip-header-color
       color: #fff
+      min-height: 25px
+      .close
+        position: absolute
+        top: 0px
+        right: 5px
+        color: #fff
+        cursor: pointer
     .content
       padding: 0.5em
     &:after
