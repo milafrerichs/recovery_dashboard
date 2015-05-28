@@ -2,8 +2,8 @@
   var RecoveryDashboardCtrl;
 
   RecoveryDashboardCtrl = (function() {
-    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper) {
-      $scope.minify = true;
+    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper, $cacheFactory) {
+      var overlayCache;
       $scope.hideMetadata = function() {
         return $scope.metadata.show = false;
       };
@@ -75,14 +75,19 @@
         },
         layers: layerListService.list
       });
+      overlayCache = $cacheFactory('overlayCache');
       olData.getMap().then(function(map) {
         var getFeatureInfo, overlay, pointerMove, showPopup;
-        overlay = new ol.Overlay({
-          element: document.getElementById('popup'),
-          positioning: 'bottom-center',
-          offset: [3, -25],
-          position: [0, 0]
-        });
+        overlay = overlayCache.get('overlay');
+        if (!overlay) {
+          overlay = new ol.Overlay({
+            element: document.getElementById('popup'),
+            positioning: 'bottom-center',
+            offset: [3, -25],
+            position: [0, 0]
+          });
+          overlayCache.put('overlay', overlay);
+        }
         getFeatureInfo = function(event, data) {
           var coordinate, layer, pixel, url, viewResolution;
           pixel = map.getEventPixel(data.event.originalEvent);
@@ -115,6 +120,8 @@
               }
               return overlay.setPosition(coordinate);
             });
+          } else if (!$scope.overlayLock) {
+            return map.removeOverlay(overlay);
           }
         };
         showPopup = function(event, feature, olEvent) {
@@ -161,7 +168,7 @@
 
   })();
 
-  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper'];
+  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper', '$cacheFactory'];
 
   angular.module('dashboard').controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl);
 

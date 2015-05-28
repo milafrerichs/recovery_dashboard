@@ -50433,11 +50433,10 @@ var colorbrewer = {YlGn: {
         index: 2,
         source: {
           type: 'ImageWMS',
-          url: 'http://demo.geonode.org/geoserver/wms',
+          url: 'http://45.55.174.20/geoserver/wms',
           params: {
-            layers: "geonode:destroyed_buildings",
-            query_layers: "geonode:destroyed_buildings",
-            styles: "destroyed_buildings"
+            layers: "hazard:destroyed_buildings_admin_3",
+            query_layers: "hazard:destroyed_buildings_admin_3"
           }
         },
         metadata: {
@@ -50672,9 +50671,12 @@ var colorbrewer = {YlGn: {
         displayed: false,
         visible: false,
         source: {
-          type: 'TileVector',
-          format: new ol.format.GeoJSON(),
-          url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
+          type: 'ImageWMS',
+          url: 'http://45.55.174.20/geoserver/wms',
+          params: {
+            layers: "hazard:aria_dpm_alos2_f550_v05u_climmax07454_t1h1b0u0_dpmraw",
+            query_layers: "hazard:aria_dpm_alos2_f550_v05u_climmax07454_t1h1b0u0_dpmraw"
+          }
         },
         metadata: {
           name: "Damages from NASA",
@@ -50730,6 +50732,38 @@ var colorbrewer = {YlGn: {
 
 }).call(this);
 (function() {
+  angular.module('dashboard').directive('infoWindow', [
+    'olData', '$cacheFactory', function(olData, $cacheFactory) {
+      return {
+        restrict: 'E',
+        scope: {
+          "class": '@',
+          showValue: '@',
+          header: '@',
+          showProperty: '='
+        },
+        transclude: true,
+        replace: true,
+        template: '<div class="{{class}}" ng-show="show"><h4>{{header}} <a class="close" ng-click="hideOverlay()">x</a></h4><div class="content"><div ng-transclude></div></div></div>',
+        link: function(scope, element, attr) {
+          scope.$watch('showProperty', function(value) {
+            return scope.show = value === attr.showValue;
+          });
+          scope.hideOverlay = function() {
+            return olData.getMap().then(function(map) {
+              var overlay, overlayCache;
+              overlayCache = $cacheFactory.get('overlayCache');
+              overlay = overlayCache.get('overlay');
+              return map.removeOverlay(overlay);
+            });
+          };
+        }
+      };
+    }
+  ]);
+
+}).call(this);
+(function() {
   angular.module('dashboard').service('layerListService', [
     '$rootScope', 'layerListModel', function($rootScope, layerListModel) {
       var allLayers, collectCombinedLayers, collectLayers;
@@ -50757,8 +50791,8 @@ var colorbrewer = {YlGn: {
   var RecoveryDashboardCtrl;
 
   RecoveryDashboardCtrl = (function() {
-    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper) {
-      $scope.minify = true;
+    function RecoveryDashboardCtrl($scope, $http, olData, olHelpers, layerListService, styleHelper, $cacheFactory) {
+      var overlayCache;
       $scope.hideMetadata = function() {
         return $scope.metadata.show = false;
       };
@@ -50830,14 +50864,19 @@ var colorbrewer = {YlGn: {
         },
         layers: layerListService.list
       });
+      overlayCache = $cacheFactory('overlayCache');
       olData.getMap().then(function(map) {
         var getFeatureInfo, overlay, pointerMove, showPopup;
-        overlay = new ol.Overlay({
-          element: document.getElementById('popup'),
-          positioning: 'bottom-center',
-          offset: [3, -25],
-          position: [0, 0]
-        });
+        overlay = overlayCache.get('overlay');
+        if (!overlay) {
+          overlay = new ol.Overlay({
+            element: document.getElementById('popup'),
+            positioning: 'bottom-center',
+            offset: [3, -25],
+            position: [0, 0]
+          });
+          overlayCache.put('overlay', overlay);
+        }
         getFeatureInfo = function(event, data) {
           var coordinate, layer, pixel, url, viewResolution;
           pixel = map.getEventPixel(data.event.originalEvent);
@@ -50870,6 +50909,8 @@ var colorbrewer = {YlGn: {
               }
               return overlay.setPosition(coordinate);
             });
+          } else if (!$scope.overlayLock) {
+            return map.removeOverlay(overlay);
           }
         };
         showPopup = function(event, feature, olEvent) {
@@ -50916,7 +50957,7 @@ var colorbrewer = {YlGn: {
 
   })();
 
-  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper'];
+  RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper', '$cacheFactory'];
 
   angular.module('dashboard').controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl);
 

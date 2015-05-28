@@ -26,71 +26,45 @@
         <ol-layer ng-repeat='layer in layers|filter:{active:true}' ol-layer-properties='layer'></ol-layer>
       </openlayers>
       <div class='ng-cloak' id='popup'>
-        <div class='poverty' ng-show="name=='poverty'">
-          <h4>{{properties.OBJECTID}}</h4>
-          <div class='content'>
-            <p>Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %</p>
-            <p>People: {{properties.nIndividua}}</p>
-          </div>
-        </div>
-        <div class='nasa' ng-show="name=='nasa'">
-          <h4>{{properties.Name}}</h4>
-          <div class='content'>
-            <p></p>
-          </div>
-        </div>
-        <div class='buildings' ng-show="name=='db-admin'">
-          <h4>{{properties.OBJECTID}}</h4>
-          <div class='content'>
-            <p>Overall Damaged Buildings: {{properties.BUILDING_C}}</p>
-            <p>Destroyed Buildings: {{properties.DESTROYED_}}</p>
-            <p>Moderate Damaged Buildings: {{properties.MODERATE_D}}</p>
-            <p>Minor Damaged Buildings: {{properties.MINOR_DAMA}}</p>
-          </div>
-        </div>
-        <div class='media' ng-show="name=='media'">
-          <h4>{{properties.District}}</h4>
-          <div class='content'>
-            <p>Date: {{properties.Date}}</p>
-            <p>Injured: {{properties.Injured}}</p>
-            <p>Houses Affected: {{properties.Houses_aff}}</p>
-            <p>Killed: {{properties.Killed}}</p>
-            <p>Needs: {{properties.Needs}}</p>
-          </div>
-        </div>
-        <div class='valley-landslides' ng-show="name=='valley-landslides'">
-          <h4>{{properties.Name}}</h4>
-          <div class='content'>
-            <p>Date: {{properties.date}}</p>
-            <p>Size: {{properties.Size}}</p>
-            <p>Sensor: {{properties.Sensor}}</p>
-            <p>Location: {{properties.Location}}</p>
-            <p>Fail Type: {{properties.FailType}}</p>
-          </div>
-        </div>
-        <div class='landslides-bgs' ng-show="name=='landslides-bgs'">
-          <h4>{{properties.Name}}</h4>
-          <div class='content'>
-            <p>Date: {{properties.Date}}</p>
-            <p>Size: {{properties.Size}}</p>
-            <p>Source: {{properties.Source}}</p>
-          </div>
-        </div>
-        <div class='landslides' ng-show="name=='landslides'">
-          <h4>{{properties.org}}</h4>
-          <div class='content'>
-            <p>Area: {{properties.Shape_Area}}</p>
-          </div>
-        </div>
-        <div class='osm' ng-show="sourceType=='OSM'">
-          <h4>{{properties.NAME}}</h4>
-          <div class='content'>
-            <p>OSM_ID: {{properties.OSM_ID}}</p>
-          </div>
-        </div>
+        <info-window class='poverty' header='{{properties.OBJECTID}}' show-property='name' show-value='poverty'>
+          <p ng-show='properties.avg_FGT0_1'>Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %</p>
+          <p ng-show='properties.nIndividua'>People: {{properties.nIndividua}}</p>
+        </info-window>
+        <info-window class='nasa' header='{{properties.Name}}' show-property='name' show-value='nasa'></info-window>
+        <info-window class='buildings' header='{{properties.DISTRICT}}' show-property='name' show-value='db-admin'>
+          <p>Overall Damaged Buildings: {{properties.BUILDING_C}}</p>
+          <p>Destroyed Buildings: {{properties.DESTROYED_}}</p>
+          <p>Moderate Damaged Buildings: {{properties.MODERATE_D}}</p>
+          <p>Minor Damaged Buildings: {{properties.MINOR_DAMA}}</p>
+        </info-window>
+        <info-window class='media' header='{{properties.District}}' show-property='name' show-value='media'>
+          <p ng-show='properties.Date'>Date: {{properties.Date}}</p>
+          <p ng-show='properties.Injured'>Injured: {{properties.Injured}}</p>
+          <p ng-show='properties.Houses_aff'>Houses Affected: {{properties.Houses_aff}}</p>
+          <p ng-show='properties.Killed'>Killed: {{properties.Killed}}</p>
+          <p ng-show='properties.Needs'>Needs: {{properties.Needs}}</p>
+        </info-window>
+        <info-window class='valley-landslides' header='{{properties.Name}}' show-property='name' show-value='valley-landslides'>
+          <p ng-show='properties.date'>Date: {{properties.date}}</p>
+          <p ng-show='properties.Size'>Size: {{properties.Size}}</p>
+          <p ng-show='properties.Sensor'>Sensor: {{properties.Sensor}}</p>
+          <p ng-show='properties.Location'>Location: {{properties.Location}}</p>
+          <p ng-show='properties.FailType'>Fail Type: {{properties.FailType}}</p>
+        </info-window>
+        <info-window class='landslides-bgs' header='{{properties.Name}}' show-property='name' show-value='landslides-bgs'>
+          <p ng-show='properties.Date'>Date: {{properties.Date}}</p>
+          <p ng-show='properties.Size'>Size: {{properties.Size}}</p>
+          <p ng-show='properties.Source'>Source: {{properties.Source}}</p>
+        </info-window>
+        <info-window class='landslides' header='{{properties.org}}' show-property='name' show-value='landslides'>
+          <p ng-show='properties.Shape_Area'>Area: {{properties.Shape_Area}}</p>
+        </info-window>
+        <info-window class='osm' header='{{properties.NAME}}' show-property='sourceType' show-value='OSM'>
+          <p ng-show='properties.OSM_ID'>OSM_ID: {{properties.OSM_ID}}</p>
+        </info-window>
       </div>
-      <div class='ng-cloak minify' id='layers' ng-class='{ minify: minify }'>
-        <div class='header' ng-mouseout='minify=true' ng-mouseover='minify=false'>
+      <div class='ng-cloak' id='layers'>
+        <div id='groups'>
           <ul class='group-header'>
             <li class='group' ng-class='{active: group.active}' ng-click='showGroup()' ng-model='group' ng-repeat='group in layerGroups'>
               <i class='fa fa-{{group.iconClass}}'></i>
@@ -99,55 +73,48 @@
               </div>
             </li>
           </ul>
-        </div>
-        <div class='wrapper'>
-          <div id='groups' ng-mouseout='minify=true' ng-mouseover='minify=false'>
-            <div class='groups' ng-class='{active: group.active}' ng-repeat='group in layerGroups' ng-show='group.active'>
-              <h4>{{group.name}}</h4>
-              <div class='layer' ng-model='layer' ng-mouseout='toggleVisibility()' ng-mouseover='layer.visible=true;' ng-repeat='layer in group.layers'>
-                <div class='layer-check' ng-click='toggleDisplayed()'>
-                  <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
-                    <label></label>
-                  </input>
-                </div>
-                <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
-                <div class='info' ng-click='toggleMetadata()' ng-model='layer.metadata.show'>i</div>
-                <div class='sub-styles' ng-show='layer.styleOptions'>
-                  <div class='subcheck' ng-model='styleOptions' ng-repeat='styleOptions in layer.styleOptions'>
-                    <input name='layerSubStyle' ng-change='changeStyle()' ng-model='layer.selectedStyle' ng-value='styleOptions.styleParam' type='radio'>
-                    <p>{{styleOptions.styleName}}</p>
-                  </div>
-                </div>
+          <div class='groups' ng-class='{active: group.active}' ng-repeat='group in layerGroups' ng-show='group.active'>
+            <div class='layer' ng-model='layer' ng-mouseout='toggleVisibility()' ng-mouseover='layer.visible=true;' ng-repeat='layer in group.layers'>
+              <div class='layer-check' ng-click='toggleDisplayed()'>
+                <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
+                  <label></label>
+                </input>
               </div>
-              <div class='layer' ng-model='combinedLayer' ng-mouseout='resetCombinedLayers()' ng-mouseover='showCombinedLayers()' ng-repeat='combinedLayer in group.combinedLayers'>
-                <div class='layer-check' ng-click='toggleCombinedDisplayed()'>
-                  <input ng-change='toggleCombinedVisibility()' ng-model='combinedLayer.displayed' type='checkbox'>
-                    <label></label>
-                  </input>
+              <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
+              <div class='info' ng-click='toggleMetadata()' ng-model='layer.metadata.show'>i</div>
+              <div class='sub-styles' ng-show='layer.styleOptions'>
+                <div class='subcheck' ng-model='styleOptions' ng-repeat='styleOptions in layer.styleOptions'>
+                  <input name='layerSubStyle' ng-change='changeStyle()' ng-model='layer.selectedStyle' ng-value='styleOptions.styleParam' type='radio'>
+                  <p>{{styleOptions.styleName}}</p>
                 </div>
-                <div class='name' ng-click='toggleCombinedDisplayed()' ng-model='visibleLayers'>{{combinedLayer.name}}</div>
-                <div class='info' ng-click='toggleMetadata()' ng-model='combinedLayer.metadata.show'>i</div>
               </div>
             </div>
+            <div class='layer' ng-model='combinedLayer' ng-mouseout='resetCombinedLayers()' ng-mouseover='showCombinedLayers()' ng-repeat='combinedLayer in group.combinedLayers'>
+              <div class='layer-check' ng-click='toggleCombinedDisplayed()'>
+                <input ng-change='toggleCombinedVisibility()' ng-model='combinedLayer.displayed' type='checkbox'>
+                  <label></label>
+                </input>
+              </div>
+              <div class='name' ng-click='toggleCombinedDisplayed()' ng-model='visibleLayers'>{{combinedLayer.name}}</div>
+              <div class='info' ng-click='toggleMetadata()' ng-model='combinedLayer.metadata.show'>i</div>
+            </div>
           </div>
-          <div class='active-layers' ng-mouseout='minify=minify' ng-mouseover='minify=minify'>
-            <div class='active-groups' ng-repeat='group in layerGroups'>
-              <div class='layer' ng-repeat='layer in group.layers' ng-show='layer.displayed'>
-                <div class='layer-check' ng-click='toggleDisplayed()'>
-                  <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
-                    <label></label>
-                  </input>
-                </div>
-                <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
+          <div class='active-groups' ng-repeat='group in layerGroups'>
+            <div class='layer' ng-repeat='layer in group.layers' ng-show='layer.displayed'>
+              <div class='layer-check' ng-click='toggleDisplayed()'>
+                <input ng-change='toggleVisibility()' ng-model='layer.displayed' type='checkbox'>
+                  <label></label>
+                </input>
               </div>
-              <div class='layer' ng-repeat='combinedLayer in group.combinedLayers' ng-show='combinedLayer.displayed'>
-                <div class='layer-check' ng-click='toggleCombinedDisplayed()'>
-                  <input ng-change='toggleVisibility()' ng-model='combinedLayer.displayed' type='checkbox'>
-                    <label></label>
-                  </input>
-                </div>
-                <div class='name' ng-click='toggleCombinedDisplayed()' ng-model='visibleLayers'>{{combinedLayer.metadata.name}}</div>
+              <div class='name' ng-click='toggleDisplayed()' ng-model='visibleLayers'>{{layer.metadata.name}}</div>
+            </div>
+            <div class='layer' ng-repeat='combinedLayer in group.combinedLayers' ng-show='combinedLayer.displayed'>
+              <div class='layer-check' ng-click='toggleCombinedDisplayed()'>
+                <input ng-change='toggleVisibility()' ng-model='combinedLayer.displayed' type='checkbox'>
+                  <label></label>
+                </input>
               </div>
+              <div class='name' ng-click='toggleCombinedDisplayed()' ng-model='visibleLayers'>{{combinedLayer.metadata.name}}</div>
             </div>
           </div>
         </div>
