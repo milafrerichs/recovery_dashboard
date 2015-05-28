@@ -82,6 +82,9 @@ class RecoveryDashboardCtrl
                 overlayHidden = false
                 $scope.overlayLock = true
             overlay.setPosition(coordinate)
+        else if not $scope.overlayLock
+          map.removeOverlay(overlay)
+
       showPopup = (event, feature, olEvent) ->
         pixel = map.getEventPixel(olEvent.originalEvent)
         layer = map.forEachLayerAtPixel(pixel, (layer) -> layer)
