@@ -23,7 +23,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       }
     }
     metadata: {
-      name: "Damaged Buildings"
+      name: "Building damage by remote sensing"
       source: ""
       text: "Using remotely sensed data, international organizations have been interpreting damage to structures building by building. The GFDRR team has collated and standardized the damage levels used in all three datasets by applying some assumptions and merged into a single GIS data layer. Areas covered are limited to areas where cloud free images were available.   
       
@@ -266,7 +266,7 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
       url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
     }
     metadata: {
-      name: "Damages from NASA"
+      name: "Damage Proxy Map (NASA JPL)"
       source: "NASA"
     }
   }
