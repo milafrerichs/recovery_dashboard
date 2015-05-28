@@ -1,5 +1,5 @@
 class RecoveryDashboardCtrl
-  constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper) ->
+  constructor: ($scope, $http, olData, olHelpers, layerListService, styleHelper, $cacheFactory) ->
     $scope.hideMetadata = () ->
       $scope.metadata.show = false
     $scope.toggleMetadata = () ->
@@ -53,13 +53,17 @@ class RecoveryDashboardCtrl
       }
       layers: layerListService.list
     })
+    overlayCache = $cacheFactory('overlayCache')
     olData.getMap().then( (map) ->
-      overlay = new ol.Overlay({
-                      element: document.getElementById('popup'),
-                      positioning: 'bottom-center',
-                      offset: [3, -25],
-                      position: [0, 0]
-      })
+      overlay = overlayCache.get('overlay')
+      unless overlay
+        overlay = new ol.Overlay({
+                        element: document.getElementById('popup'),
+                        positioning: 'bottom-center',
+                        offset: [3, -25],
+                        position: [0, 0]
+        })
+        overlayCache.put('overlay', overlay)
       getFeatureInfo = (event, data) ->
         pixel = map.getEventPixel(data.event.originalEvent)
         layer = map.forEachLayerAtPixel(pixel,((layer) -> layer), map, (layer) -> layer.get('name') is 'poverty' or layer.get('name') is 'db-admin')
@@ -115,5 +119,5 @@ class RecoveryDashboardCtrl
     $scope.layerGroups = layerListService.layerGroups
     $scope.layerList = layerListService.list
 
-RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper']
+RecoveryDashboardCtrl.$inject = ['$scope', '$http', 'olData', 'olHelpers', 'layerListService', 'styleHelper', '$cacheFactory']
 angular.module('dashboard').controller("RecoveryDashboardCtrl", RecoveryDashboardCtrl)
