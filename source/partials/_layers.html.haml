@@ -26,6 +26,7 @@
           .name(ng-model="visibleLayers" ng-click="toggleCombinedDisplayed()") {{combinedLayer.name}}
           .info(ng-model="combinedLayer.metadata.show" ng-click="toggleMetadata()") i
     .active-layers(ng-mouseover="minify=minify" ng-mouseout="minify=minify")
+      %h5 Data currently displayed
       .active-groups(ng-repeat="group in layerGroups")
         .layer(ng-repeat="layer in group.layers" ng-show="layer.displayed")
           .layer-check(ng-click="toggleDisplayed()")
@@ -37,3 +38,4 @@
             %input(type="checkbox" ng-model="combinedLayer.displayed" ng-change="toggleVisibility()")
               %label
           .name(ng-model="visibleLayers" ng-click="toggleCombinedDisplayed()") {{combinedLayer.metadata.name}}
+      %p Click on a layer to hide it
