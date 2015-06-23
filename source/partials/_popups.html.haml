@@ -1,0 +1,30 @@
+#popup.ng-cloak
+  %info-window(class="poverty" show-property="name" show-value="poverty" header="{{properties.OBJECTID}}")
+    %p(ng-show="properties.avg_FGT0_1") Avg Poor: {{properties.avg_FGT0_1 * 100 | number: 0}} %
+    %p(ng-show="properties.nIndividua") People: {{properties.nIndividua}}
+  %info-window(class="nasa" show-property="name" show-value="nasa" header="{{properties.Name}}")
+  %info-window(class="buildings" show-property="name" show-value="db-admin" header="{{properties.DISTRICT}}")
+    %p Overall Damaged Buildings: {{properties.BUILDING_C}}
+    %p Destroyed Buildings: {{properties.DESTROYED_}}
+    %p Moderate Damaged Buildings: {{properties.MODERATE_D}}
+    %p Minor Damaged Buildings: {{properties.MINOR_DAMA}}
+  %info-window(class="media" show-property="name" show-value="media" header="{{properties.District}}")
+    %p(ng-show="properties.Date") Date: {{properties.Date}}
+    %p(ng-show="properties.Injured") Injured: {{properties.Injured}}
+    %p(ng-show="properties.Houses_aff") Houses Affected: {{properties.Houses_aff}}
+    %p(ng-show="properties.Killed") Killed: {{properties.Killed}}
+    %p(ng-show="properties.Needs") Needs: {{properties.Needs}}
+  %info-window(class="valley-landslides" show-property="name" show-value="valley-landslides" header="{{properties.Name}}")
+    %p(ng-show="properties.date") Date: {{properties.date}}
+    %p(ng-show="properties.Size") Size: {{properties.Size}}
+    %p(ng-show="properties.Sensor") Sensor: {{properties.Sensor}}
+    %p(ng-show="properties.Location") Location: {{properties.Location}}
+    %p(ng-show="properties.FailType") Fail Type: {{properties.FailType}}
+  %info-window(class="landslides-bgs" show-property="name" show-value="landslides-bgs" header="{{properties.Name}}")
+    %p(ng-show="properties.Date") Date: {{properties.Date}}
+    %p(ng-show="properties.Size") Size: {{properties.Size}}
+    %p(ng-show="properties.Source") Source: {{properties.Source}}
+  %info-window(class="landslides" show-property="name" show-value="landslides" header="{{properties.org}}")
+    %p(ng-show="properties.Shape_Area") Area: {{properties.Shape_Area}}
+  %info-window(class="osm" show-property="sourceType" show-value="OSM" header="{{properties.NAME}}")
+    %p(ng-show="properties.OSM_ID") OSM_ID: {{properties.OSM_ID}}

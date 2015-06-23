@@ -15,11 +15,10 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     index: 2
     source: {
       type: 'ImageWMS',
-      url: 'http://demo.geonode.org/geoserver/wms'
+      url: 'http://45.55.174.20/geoserver/wms'
       params: {
-        layers: "geonode:destroyed_buildings"
-        query_layers: "geonode:destroyed_buildings"
-        styles: "destroyed_buildings"
+        layers: "hazard:destroyed_buildings_admin_3"
+        query_layers: "hazard:destroyed_buildings_admin_3"
       }
     }
     metadata: {
@@ -261,9 +260,12 @@ angular.module('dashboard').service('layerListModel', ['$rootScope', 'styleHelpe
     displayed: false,
     visible: false,
     source: {
-      type: 'TileVector',
-      format: new ol.format.GeoJSON()
-      url: 'http://52.7.33.4/nasa/{z}/{x}/{y}.geojson'
+      type: 'ImageWMS',
+      url: 'http://45.55.174.20/geoserver/wms'
+      params: {
+        layers: "hazard:aria_dpm_alos2_f550_v05u_climmax07454_t1h1b0u0_dpmraw"
+        query_layers: "hazard:aria_dpm_alos2_f550_v05u_climmax07454_t1h1b0u0_dpmraw"
+      }
     }
     metadata: {
       name: "Damages from NASA"
